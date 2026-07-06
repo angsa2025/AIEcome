@@ -2,6 +2,7 @@ export { navigation } from './navigation.js';
 export { hero } from './hero.js';
 export { positioning } from './positioning.js';
 export { userNeeds } from './userNeeds.js';
+export { prototype } from './prototype.js';
 export { analysis } from './analysis.js';
 export { prdIssues } from './prdIssues.js';
 export { datamodel } from './datamodel.js';

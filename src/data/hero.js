@@ -4,7 +4,7 @@ export const hero = {
   description:
     '面向真实采购场景：买家用语音、OCR、图片或长文本说清需求，平台把所有商家货源统一归入公海池，自动做规格换算、质量评分、含税含运费比价和多商家分账。',
   actions: [
-    { label: '打开高保真原型', href: './prototype/index.html', variant: 'primary' },
+    { label: '查看三端高保真原型', href: '#prototype', variant: 'primary' },
     { label: '体验交互演示', href: '#interactive', variant: 'primary' },
     { label: '看用户需求映射', href: '#user-needs', variant: 'outline' },
   ],

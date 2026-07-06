@@ -1,6 +1,7 @@
 export const navigation = [
   { id: 'positioning', label: '项目定位' },
   { id: 'user-needs', label: '用户需求' },
+  { id: 'prototype', label: '三端原型' },
   { id: 'interactive', label: '交互演示' },
   { id: 'analysis', label: '核心难点' },
   { id: 'overview', label: '需求概述' },

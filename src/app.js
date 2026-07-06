@@ -4,6 +4,7 @@ import { Hero } from './components/Hero.js';
 import { Footer, BackToTop } from './components/Footer.js';
 import { PositioningSection } from './sections/PositioningSection.js';
 import { UserNeedsSection } from './sections/UserNeedsSection.js';
+import { PrototypeSection } from './sections/PrototypeSection.js';
 import { InteractiveSection } from './sections/InteractiveSection.js';
 import { AnalysisSection } from './sections/AnalysisSection.js';
 import { OverviewSection } from './sections/OverviewSection.js';
@@ -27,6 +28,7 @@ import { initMobileNav } from './utils/mobileNav.js';
 const SECTION_RENDERERS = [
   () => PositioningSection(data.positioning),
   () => UserNeedsSection(data.userNeeds),
+  () => PrototypeSection(data.prototype),
   () => InteractiveSection(),
   () => AnalysisSection(data.analysis),
   () => OverviewSection(data.overview),

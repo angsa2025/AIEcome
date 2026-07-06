@@ -6,10 +6,10 @@ export const prototype = {
   terminals: [
     {
       type: 'phone',
-      title: '买家采购端',
-      subtitle: 'AI 语音/OCR/文本采购 · 公海比价 · 跨商家结算',
+      title: '买家小程序采购端',
+      subtitle: '参考小程序交互适配 · AI 语音/OCR/文本采购 · 公海比价 · 跨商家结算',
       src: './prototype/buyer.html',
-      badges: ['语音采购', '公海比价', '购物车', '订单售后'],
+      badges: ['小程序适配', '语音采购', '公海比价', '订单售后'],
     },
     {
       type: 'browser',

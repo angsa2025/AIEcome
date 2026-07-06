@@ -2088,6 +2088,8 @@ body[data-page="admin"] .brand__mark {
 body[data-page="admin"] .admin-workspace {
   min-height: calc(100vh - 56px);
   grid-template-columns: 232px minmax(0, 1fr);
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body[data-page="admin"] .admin-sidebar {
@@ -2133,8 +2135,15 @@ body[data-page="admin"] .admin-sidebar .side-link.is-active {
 }
 
 body[data-page="admin"] .admin-main {
+  min-width: 0;
+  max-width: calc(100vw - 232px);
+  overflow-x: hidden;
   padding: 18px;
   background: var(--admin-bg);
+}
+
+body[data-page="admin"] .page {
+  min-width: 0;
 }
 
 body[data-page="admin"] .admin-page-head {
@@ -2225,6 +2234,7 @@ body[data-page="admin"] .admin-grid-gap {
 }
 
 body[data-page="admin"] .admin-panel {
+  min-width: 0;
   border-color: var(--admin-line);
   border-radius: 12px;
   padding: 16px;
@@ -2333,6 +2343,8 @@ body[data-page="admin"] .admin-upload-grid div {
 }
 
 body[data-page="admin"] .admin-table-panel {
+  max-width: 100%;
+  min-width: 0;
   margin-top: 16px;
   overflow-x: auto;
 }
@@ -2392,13 +2404,16 @@ body[data-page="admin"] .admin-product-cell em {
 
 body[data-page="admin"] .admin-pool-layout {
   display: grid;
-  grid-template-columns: 260px 300px minmax(0, 1fr);
+  grid-template-columns: minmax(220px, 260px) minmax(240px, 300px) minmax(0, 1fr);
   gap: 16px;
   align-items: start;
+  min-width: 0;
 }
 
 body[data-page="admin"] .admin-pool-list {
   grid-column: span 1;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 body[data-page="admin"] .admin-detail-card {
@@ -2704,5 +2719,28 @@ body[data-page="admin"] .admin-promo-list div:hover {
 
   .main {
     padding: 18px;
+  }
+
+  body[data-page="admin"] .admin-main {
+    max-width: 100vw;
+  }
+
+  body[data-page="admin"] .admin-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="admin"] .admin-sidebar {
+    position: static;
+    height: auto;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: none;
+  }
+
+  body[data-page="admin"] .side-caption,
+  body[data-page="admin"] .admin-sidebar .side-title {
+    display: none;
   }
 }

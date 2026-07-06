@@ -1,5 +1,12 @@
 export { navigation } from './navigation.js';
 export { hero } from './hero.js';
+export { positioning } from './positioning.js';
+export { analysis } from './analysis.js';
+export { prdIssues } from './prdIssues.js';
+export { datamodel } from './datamodel.js';
+export { architecture } from './architecture.js';
+export { techstack } from './techstack.js';
+export { compareProducts, defaultWeights } from './compareProducts.js';
 export { overview } from './overview.js';
 export { glossary } from './glossary.js';
 export { merchant } from './merchant.js';

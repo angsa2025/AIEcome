@@ -1,0 +1,30 @@
+export const techstack = {
+  tag: 'Tech Stack',
+  title: '技术选型建议',
+  description: '结合 AI 平台背景，推荐以下技术栈组合。',
+  rows: [
+    ['前端', 'Vue3 + Naive UI（后台）、UniApp（小程序/App）'],
+    ['后端', 'Java Spring Boot 或 Go（高并发场景）'],
+    ['AI 服务', 'Python + FastAPI'],
+    ['大模型', 'Qwen3 / DeepSeek / GPT（按成本场景选择）'],
+    ['向量检索', 'Milvus 或 Elasticsearch + 向量能力'],
+    ['数据库', 'MySQL + Redis'],
+    ['文件存储', 'MinIO'],
+    ['搜索', 'Elasticsearch'],
+    ['消息队列', 'RabbitMQ 或 Kafka'],
+  ],
+  aiOutput: {
+    description: 'AI 采购意图解析 — 建议标准 JSON 输出格式',
+    schema: {
+      category: '螺栓',
+      material: '42CrMo',
+      spec: 'M8×30',
+      quantity: 1000,
+      unit: '个',
+      quality_level: '国标一级',
+      lead_days: 7,
+      filters: ['包邮', '可开票'],
+      confidence: 0.92,
+    },
+  },
+};

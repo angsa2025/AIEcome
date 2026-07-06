@@ -1,0 +1,128 @@
+.terminals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.terminal {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.terminal__header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.terminal__title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.terminal__tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--primary-light);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.terminal__body {
+  padding: 24px;
+  min-height: 280px;
+}
+
+.mock-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mock-bar {
+  height: 12px;
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.mock-bar--short { width: 40%; }
+.mock-bar--medium { width: 65%; }
+.mock-bar--wide { width: 90%; background: linear-gradient(90deg, var(--primary-light), var(--ai-light)); }
+
+.mock-card-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.mock-card {
+  flex: 1;
+  height: 80px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary-light), var(--ai-light));
+  border: 1px solid var(--border);
+}
+
+.mock-card--highlight {
+  height: 60px;
+  border: 2px solid var(--primary);
+}
+
+.mock-card--dim { height: 50px; opacity: 0.7; }
+.mock-card--dimmer { height: 50px; opacity: 0.5; }
+
+.mock-voice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(124, 58, 237, 0.08));
+  border: 1px dashed rgba(37, 99, 235, 0.3);
+  margin-top: 12px;
+}
+
+.mock-mic {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--ai));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.mock-voice__text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: left;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(37, 99, 235, 0); }
+}
+
+@media (max-width: 900px) {
+  .terminals {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mock-mic {
+    animation: none;
+  }
+}

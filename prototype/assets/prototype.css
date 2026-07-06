@@ -2069,6 +2069,19 @@ body[data-page="admin"] {
   background: var(--admin-bg);
 }
 
+body[data-page="merchant"] {
+  --admin-bg: #f5f7fb;
+  --admin-card: #ffffff;
+  --admin-side: #241b16;
+  --admin-side-2: #30231a;
+  --admin-primary: #8c5a3c;
+  --admin-primary-soft: #f3e9df;
+  --admin-accent: #2563eb;
+  --admin-line: rgba(15, 23, 42, 0.08);
+  --admin-muted: #64748b;
+  background: var(--admin-bg);
+}
+
 body[data-page="admin"] .admin-topbar {
   height: 56px;
   background: rgba(255, 255, 255, 0.94);
@@ -2638,9 +2651,168 @@ body[data-page="admin"] .admin-promo-list div:hover {
   border-color: rgba(140, 90, 60, 0.34);
 }
 
+body[data-page="merchant"] .admin-topbar {
+  height: 56px;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--admin-line);
+}
+
+body[data-page="merchant"] .admin-topbar .topbar__inner {
+  max-width: none;
+  padding: 0 18px 0 16px;
+}
+
+body[data-page="merchant"] .brand__mark {
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--admin-primary), #b07d44);
+}
+
+body[data-page="merchant"] .admin-workspace {
+  min-height: calc(100vh - 56px);
+  grid-template-columns: 232px minmax(0, 1fr);
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body[data-page="merchant"] .admin-sidebar {
+  top: 56px;
+  height: calc(100vh - 56px);
+  padding: 16px 12px 18px;
+  border-right: 0;
+  background: var(--admin-side);
+  color: #f5ede0;
+  box-shadow: 2px 0 12px rgba(15, 23, 42, 0.12);
+  backdrop-filter: none;
+}
+
+body[data-page="merchant"] .admin-sidebar .side-title {
+  margin: 4px 12px 14px;
+  color: rgba(245, 237, 224, 0.56);
+}
+
+body[data-page="merchant"] .side-caption {
+  margin: 16px 12px 8px;
+  color: rgba(245, 237, 224, 0.48);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body[data-page="merchant"] .admin-sidebar .side-link {
+  color: rgba(245, 237, 224, 0.78);
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+body[data-page="merchant"] .admin-sidebar .side-link:hover,
+body[data-page="merchant"] .admin-sidebar .side-link.is-active {
+  background: rgba(245, 237, 224, 0.12);
+  color: #fffaf0;
+  box-shadow: none;
+}
+
+body[data-page="merchant"] .admin-sidebar .side-link.is-active {
+  box-shadow: inset 3px 0 0 #d6ad7a;
+}
+
+body[data-page="merchant"] .admin-main {
+  min-width: 0;
+  max-width: calc(100vw - 232px);
+  overflow-x: hidden;
+  padding: 18px;
+  background: var(--admin-bg);
+}
+
+body[data-page="merchant"] .page {
+  min-width: 0;
+}
+
+body[data-page="merchant"] .admin-page-head {
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+body[data-page="merchant"] .admin-page-head h1 {
+  font-size: 26px;
+  letter-spacing: 0;
+}
+
+body[data-page="merchant"] .admin-page-head p {
+  color: var(--admin-muted);
+}
+
+body[data-page="merchant"] .admin-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+body[data-page="merchant"] .admin-metric {
+  border-color: var(--admin-line);
+  border-radius: 12px;
+  padding: 18px;
+  background: var(--admin-card);
+}
+
+body[data-page="merchant"] .admin-metric strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 28px;
+  letter-spacing: 0;
+}
+
+body[data-page="merchant"] .admin-metric span {
+  margin: 0;
+  color: var(--admin-muted);
+}
+
+body[data-page="merchant"] .admin-grid-gap {
+  gap: 16px;
+}
+
+body[data-page="merchant"] .admin-panel {
+  min-width: 0;
+  border-color: var(--admin-line);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--admin-card);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+body[data-page="merchant"] .admin-panel h2 {
+  margin-bottom: 12px;
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+body[data-page="merchant"] .admin-table-panel {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+body[data-page="merchant"] .admin-table {
+  min-width: 860px;
+}
+
+body[data-page="merchant"] .admin-table th {
+  color: var(--admin-muted);
+}
+
+body[data-page="merchant"] .admin-table td {
+  background: #fff;
+  border-color: var(--admin-line);
+}
+
 @media (max-width: 1100px) {
   body[data-page="admin"] .admin-stat-grid,
   body[data-page="admin"] .admin-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="merchant"] .admin-stat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2741,6 +2913,29 @@ body[data-page="admin"] .admin-promo-list div:hover {
 
   body[data-page="admin"] .side-caption,
   body[data-page="admin"] .admin-sidebar .side-title {
+    display: none;
+  }
+
+  body[data-page="merchant"] .admin-main {
+    max-width: 100vw;
+  }
+
+  body[data-page="merchant"] .admin-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="merchant"] .admin-sidebar {
+    position: static;
+    height: auto;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: none;
+  }
+
+  body[data-page="merchant"] .side-caption,
+  body[data-page="merchant"] .admin-sidebar .side-title {
     display: none;
   }
 }

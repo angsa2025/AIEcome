@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIEcome · 多端高保真交互原型</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/prototype.css" />
+</head>
+<body data-page="index">
+  <div class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="../index.html"><span class="brand__mark">A</span><span>AIEcome Prototype</span></a>
+      <nav class="topbar__links">
+        <a href="#flows">业务闭环</a>
+        <a href="#terminals">全部端</a>
+        <a href="./buyer.html">买家端</a>
+        <a href="./merchant.html">商家端</a>
+        <a href="./admin.html">平台后台</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="shell">
+    <section class="hero-wrap proto-hero">
+      <div>
+        <span class="eyebrow">高保真多端原型 · 所有核心交互可点击</span>
+        <h1>把 PRD 做成<br><span class="gradient-text">真实可操作的采购平台</span></h1>
+        <p>
+          参考 taowo_shop 的多端原型组织方式，AIEcome 已拆成买家采购端、商家供货端、平台总管理后台三套可交互页面。
+          重点不是展示静态需求，而是把 AI 采购、公海比价、商品标准化、订单分账、后台治理全部跑通。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="./buyer.html">体验买家端</a>
+          <a class="btn btn--dark" href="./merchant.html">进入商家端</a>
+          <a class="btn" href="./admin.html">打开平台后台</a>
+        </div>
+        <div class="proto-stats">
+          <div class="proto-stat"><strong>3</strong><span>完整终端</span></div>
+          <div class="proto-stat"><strong>18+</strong><span>核心交互</span></div>
+          <div class="proto-stat"><strong>5</strong><span>业务闭环</span></div>
+          <div class="proto-stat"><strong>60/40</strong><span>质量价格权重</span></div>
+        </div>
+      </div>
+      <div class="device-stack" aria-hidden="true">
+        <div class="phone-frame"><iframe src="./buyer.html" title="买家端预览"></iframe></div>
+        <div class="mini-window">
+          <div class="mini-window__bar"><i></i><i></i><i></i></div>
+          <div class="mini-screen" style="padding:18px;">
+            <div class="metric"><strong>¥ 386,420</strong><span>今日托管交易额</span></div>
+            <div class="grid-2" style="margin-top:12px;">
+              <div class="metric"><strong>126</strong><span>待审核报价</span></div>
+              <div class="metric"><strong>94%</strong><span>AI 解析成功率</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-wrap" id="flows">
+      <div class="section-head">
+        <div class="k">Core Flows</div>
+        <h2>必须能跑通的核心业务闭环</h2>
+        <p>每个闭环都在对应终端里做了交互：不是假导航，而是有状态变化、弹窗反馈、列表刷新和表单校验。</p>
+      </div>
+      <div class="flow-grid">
+        <article class="flow-card">
+          <h3>AI 采购到公海比价</h3>
+          <p>语音/OCR/文本输入，AI 解析采购参数，生成结构化需求并匹配公海报价。</p>
+        </article>
+        <article class="flow-card">
+          <h3>规格换算和综合排序</h3>
+          <p>统一型号、材质、数量、税费、运费，以质量 60% + 价格 40% 输出推荐。</p>
+        </article>
+        <article class="flow-card">
+          <h3>跨商家购物车与支付</h3>
+          <p>可把多个商家报价加入购物车，结算后拆分子订单并进入分账队列。</p>
+        </article>
+        <article class="flow-card">
+          <h3>商家上架到公海入池</h3>
+          <p>商家填写商品和资质，提交后进入平台审核，审核通过后同步公海。</p>
+        </article>
+        <article class="flow-card">
+          <h3>订单履约与资金提现</h3>
+          <p>商家录入物流、处理订单，平台结算后可提交提现和对账。</p>
+        </article>
+        <article class="flow-card">
+          <h3>后台治理与权重配置</h3>
+          <p>平台审核商家、标准化商品、调整比价权重、查看分账和经营数据。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-wrap" id="terminals">
+      <div class="section-head">
+        <div class="k">Terminals</div>
+        <h2>全部端入口</h2>
+        <p>三个端都可以独立打开体验；买家端为移动端原型，商家端和平台后台为桌面工作台。</p>
+      </div>
+      <div class="directory-grid">
+        <article class="directory-card" data-open="./buyer.html">
+          <div class="directory-card__icon">买</div>
+          <div><h3>买家采购端</h3><p>首页、AI 采购、比价、购物车、订单售后。</p></div>
+        </article>
+        <article class="directory-card" data-open="./merchant.html">
+          <div class="directory-card__icon">商</div>
+          <div><h3>商家供货端</h3><p>入驻资料、商品上架、公海状态、订单履约、结算提现。</p></div>
+        </article>
+        <article class="directory-card" data-open="./admin.html">
+          <div class="directory-card__icon">管</div>
+          <div><h3>平台总后台</h3><p>商家审核、公海标准化、比价规则、资金分账、数据大屏。</p></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast"></div>
+  <script src="./assets/prototype.js"></script>
+</body>
+</html>

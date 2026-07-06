@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIEcome · 买家采购端原型</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/prototype.css" />
+</head>
+<body data-page="buyer">
+  <div class="phone-app">
+    <header class="mobile-head">
+      <div class="mobile-head__row">
+        <div>
+          <div class="mobile-title">AIEcome 采购</div>
+          <div style="color:var(--ink-3);font-size:12px;font-weight:800;">苏州 · 企业采购账号</div>
+        </div>
+        <button class="btn btn--primary" data-mobile-target="buyer-ai">AI 采购</button>
+      </div>
+      <div class="search-pill">搜索商品、型号、材质、采购单号</div>
+    </header>
+
+    <main>
+      <section class="mobile-page is-active" id="buyer-home">
+        <div class="voice-panel">
+          <div style="font-weight:900;font-size:22px;">说出需求，直接全网比价</div>
+          <p style="margin:8px 0 0;opacity:.82;line-height:1.65;">语音、OCR、图片、长文本都能解析为采购参数。</p>
+          <button class="voice-orb" id="voiceBtn">🎙</button>
+          <div id="voiceOutput" style="min-height:46px;line-height:1.6;">点击麦克风开始模拟语音识别</div>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick" data-mobile-target="buyer-ai"><span>🎙</span>语音采购</button>
+          <button class="quick" id="ocrBtn"><span>📄</span>OCR 单据</button>
+          <button class="quick" data-mobile-target="buyer-compare"><span>⚖️</span>公海比价</button>
+          <button class="quick" data-mobile-target="buyer-orders"><span>📦</span>订单追踪</button>
+        </div>
+
+        <article class="mobile-card">
+          <h3>今日推荐采购池</h3>
+          <p style="color:var(--ink-2);line-height:1.65;">系统已基于你的历史采购，把螺栓、钢材、包装耗材三个品类加入快速比价。</p>
+          <div class="product-meta">
+            <span class="tag tag--green">螺栓 3 家可比</span>
+            <span class="tag">钢板 8 家可比</span>
+            <span class="tag">纸箱 5 家可比</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="mobile-page" id="buyer-ai">
+        <article class="mobile-card">
+          <h3>AI 采购参数解析</h3>
+          <div class="field">
+            <label>采购需求</label>
+            <textarea>我要螺栓，材质 42CrMo，国标一级，交货 7 天内，先要 2 万件，最好苏州附近仓库，可以开票。</textarea>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>品类</label><input value="螺栓" /></div>
+            <div class="field"><label>型号</label><input value="M8x30" /></div>
+            <div class="field"><label>材质</label><input value="42CrMo" /></div>
+            <div class="field"><label>数量</label><input value="20000 件" /></div>
+            <div class="field"><label>质量等级</label><input value="国标一级" /></div>
+            <div class="field"><label>交货周期</label><input value="≤ 7 天" /></div>
+          </div>
+          <button class="btn btn--primary" id="runCompare" style="width:100%;margin-top:6px;">发起公海比价</button>
+        </article>
+      </section>
+
+      <section class="mobile-page" id="buyer-compare">
+        <article class="mobile-card">
+          <div class="mobile-head__row">
+            <div>
+              <h3 style="margin:0;">公海比价结果</h3>
+              <p style="margin:5px 0 0;color:var(--ink-3);font-size:12px;">同款规格已统一到 M8x30 / 42CrMo / 件</p>
+            </div>
+            <select id="sortMode" style="border:1px solid var(--line);border-radius:12px;padding:9px;">
+              <option value="best">综合最优</option>
+              <option value="price">低价优先</option>
+              <option value="quality">高质量优先</option>
+              <option value="near">就近发货</option>
+            </select>
+          </div>
+        </article>
+        <div class="product-list" id="compareList"></div>
+        <div class="cart-bar">
+          <div id="cartSummary">0 件商品 · 预估货款 ¥0.00</div>
+          <button class="btn btn--primary" id="checkoutBtn">去结算</button>
+        </div>
+      </section>
+
+      <section class="mobile-page" id="buyer-cart">
+        <article class="mobile-card">
+          <h3>跨商家购物车</h3>
+          <p style="color:var(--ink-2);line-height:1.65;">从比价结果加入商品后，系统会按商家自动拆分子订单，买家仍然只需一次付款。</p>
+          <button class="btn btn--primary" data-mobile-target="buyer-compare" style="width:100%;">返回比价页加购</button>
+        </article>
+      </section>
+
+      <section class="mobile-page" id="buyer-orders">
+        <article class="mobile-card">
+          <h3>订单 O20260706001</h3>
+          <div class="product-meta">
+            <span class="tag tag--green">已付款</span>
+            <span class="tag">拆分 2 个子订单</span>
+            <span class="tag">分账处理中</span>
+          </div>
+          <p style="color:var(--ink-2);line-height:1.65;">华东紧固件工厂待发货；永固五金批发已确认库存。评价完成后将回流到公海质量评分。</p>
+        </article>
+        <article class="mobile-card">
+          <h3>售后入口</h3>
+          <p style="color:var(--ink-2);line-height:1.65;">支持质量问题退货、退款、补发，上传质检凭证后进入商家和平台协商流程。</p>
+          <button class="btn">提交售后申请</button>
+        </article>
+      </section>
+    </main>
+
+    <nav class="mobile-nav">
+      <button class="is-active" data-target="buyer-home"><span>🏠</span>首页</button>
+      <button data-target="buyer-ai"><span>🎙</span>AI</button>
+      <button data-target="buyer-compare"><span>⚖️</span>比价</button>
+      <button data-target="buyer-cart"><span>🛒</span>购物车</button>
+      <button data-target="buyer-orders"><span>📦</span>订单</button>
+    </nav>
+  </div>
+
+  <div class="modal" id="checkoutModal">
+    <div class="modal__card">
+      <div class="modal__head">
+        <h2>确认跨商家订单</h2>
+        <button class="btn" data-close-modal="checkoutModal">关闭</button>
+      </div>
+      <table class="table">
+        <thead><tr><th>商品</th><th>数量</th><th>金额</th></tr></thead>
+        <tbody id="checkoutLines"></tbody>
+      </table>
+      <div class="panel" style="margin-top:14px;">
+        <h3>分账规则</h3>
+        <p style="color:var(--ink-2);line-height:1.65;">买家一次付款，平台按子订单自动分账给供货商、平台服务费账户和三方服务公司。</p>
+      </div>
+      <button class="btn btn--primary" id="payBtn" style="width:100%;margin-top:16px;">微信免密支付并拆分子订单</button>
+    </div>
+  </div>
+
+  <div class="toast"></div>
+  <script src="./assets/prototype.js"></script>
+</body>
+</html>

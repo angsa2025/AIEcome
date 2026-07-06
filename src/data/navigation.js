@@ -1,5 +1,6 @@
 export const navigation = [
   { id: 'positioning', label: '项目定位' },
+  { id: 'user-needs', label: '用户需求' },
   { id: 'interactive', label: '交互演示' },
   { id: 'analysis', label: '核心难点' },
   { id: 'overview', label: '需求概述' },
@@ -9,5 +10,6 @@ export const navigation = [
   { id: 'engine', label: '比价引擎' },
   { id: 'prd-issues', label: 'PRD评审' },
   { id: 'techstack', label: '技术选型' },
+  { id: 'roadmap', label: '落地路线' },
   { id: 'acceptance', label: '验收标准' },
 ];

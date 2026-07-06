@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIEcome · 商家供货端原型</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/prototype.css" />
+</head>
+<body data-page="merchant">
+  <div class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="./index.html"><span class="brand__mark">商</span><span>商家供货端</span></a>
+      <nav class="topbar__links">
+        <a href="./buyer.html">买家端</a>
+        <a href="./admin.html">平台后台</a>
+        <a href="../index.html">PRD 页</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <aside class="sidebar">
+      <div class="side-title">Merchant Portal</div>
+      <button class="side-link is-active" data-target="merchant-dashboard">概览</button>
+      <button class="side-link" data-target="merchant-onboarding">入驻资料</button>
+      <button class="side-link" data-target="merchant-products">商品上架</button>
+      <button class="side-link" data-target="merchant-orders">订单履约</button>
+      <button class="side-link" data-target="merchant-settlement">结算提现</button>
+    </aside>
+
+    <main class="main">
+      <section class="page is-active" id="merchant-dashboard">
+        <div class="dash-head">
+          <div><h1>华东紧固件工厂</h1><p>企业商家 · 公海质量评分 96 · 今日进入 17 次比价结果</p></div>
+          <button class="btn btn--primary">刷新公海表现</button>
+        </div>
+        <div class="grid-3">
+          <div class="metric"><strong>128</strong><span>在售 SKU</span></div>
+          <div class="metric"><strong>42,600</strong><span>公海曝光</span></div>
+          <div class="metric"><strong>¥ 86,420</strong><span>待结算货款</span></div>
+        </div>
+        <div class="grid-2" style="margin-top:18px;">
+          <div class="panel"><h2>公海入池提醒</h2><p style="color:var(--ink-2);line-height:1.7;">3 个商品因包装规格缺失无法参与自动比价，补充“箱/件/包”换算关系后可重新提交。</p><button class="btn" data-target="merchant-products">去处理</button></div>
+          <div class="panel"><h2>质量评分构成</h2><div class="product-meta"><span class="tag tag--green">质检 30/30</span><span class="tag tag--green">评价 28/30</span><span class="tag">资质 20/20</span><span class="tag">履约 18/20</span></div></div>
+        </div>
+      </section>
+
+      <section class="page" id="merchant-onboarding">
+        <div class="dash-head"><div><h1>商家入驻与资质</h1><p>资质审核通过后，商品才可上架并进入公海池。</p></div></div>
+        <div class="grid-2">
+          <div class="panel">
+            <h2>企业资料</h2>
+            <div class="field"><label>店铺名称</label><input value="华东紧固件工厂" /></div>
+            <div class="field"><label>主体类型</label><select><option>企业商家</option><option>个人商家</option></select></div>
+            <div class="field"><label>主营类目</label><input value="五金紧固件 / 工业配件" /></div>
+            <div class="field"><label>售后政策</label><textarea>质量问题 7 日内退换，支持补发；批量采购可签订框架协议。</textarea></div>
+            <button class="btn btn--primary" onclick="window.dispatchEvent(new CustomEvent('noop'))">保存资料</button>
+          </div>
+          <div class="panel">
+            <h2>资质文件</h2>
+            <table class="table">
+              <tbody>
+                <tr><td>营业执照</td><td><span class="tag tag--green">已通过</span></td></tr>
+                <tr><td>法人证件</td><td><span class="tag tag--green">已通过</span></td></tr>
+                <tr><td>质检报告</td><td><span class="tag tag--amber">待更新</span></td></tr>
+                <tr><td>行业资质</td><td><span class="tag">可选</span></td></tr>
+              </tbody>
+            </table>
+            <button class="btn" id="importExcel" style="margin-top:12px;">上传/更新资质</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="merchant-products">
+        <div class="dash-head">
+          <div><h1>商品上架与公海状态</h1><p>商品提交后自动匹配标准类目、单位和 SPU/SKU，审核通过后进入公海比价池。</p></div>
+          <button class="btn" id="importExcel">批量 Excel 导入</button>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <h2>新增商品</h2>
+            <div class="field"><label>商品名称</label><input id="productName" value="M8x30 42CrMo 国标一级螺栓" /></div>
+            <div class="field"><label>规格参数</label><input id="productSpec" value="M8x30 / 42CrMo / 国标一级 / 1000件/箱" /></div>
+            <div class="field"><label>含税单价</label><input id="productPrice" value="0.82" /></div>
+            <div class="field"><label>质检证书</label><input value="GB/T 3098.1 + 第三方检测报告" /></div>
+            <button class="btn btn--primary" id="publishProduct" style="width:100%;">提交审核并归入公海</button>
+          </div>
+          <div class="panel">
+            <h2>公海归集说明</h2>
+            <p style="color:var(--ink-2);line-height:1.75;">商家只维护自有报价、库存和质检信息。平台会把商品挂到统一 SPU 下，与其他商家同款并列比价。</p>
+            <div class="product-meta"><span class="tag">SPU：高强螺栓</span><span class="tag">SKU：M8x30</span><span class="tag">单位：件</span></div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:18px;">
+          <h2>商品列表</h2>
+          <table class="table" id="merchantProducts">
+            <thead><tr><th>商品</th><th>规格</th><th>单价</th><th>公海状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>M8x30 42CrMo 国标一级螺栓<br><span class="tag tag--green">已入池</span></td><td>1000件/箱</td><td>0.82 元</td><td><span class="tag tag--green">可比价</span></td><td><button class="btn">调价</button></td></tr>
+              <tr><td>M10x40 高强度螺栓<br><span class="tag">待审核</span></td><td>500件/箱</td><td>1.12 元</td><td><span class="tag tag--amber">待审核</span></td><td><button class="btn">编辑</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="merchant-orders">
+        <div class="dash-head"><div><h1>订单履约</h1><p>跨商家订单会自动拆成子订单，商家只处理自己的发货和售后。</p></div></div>
+        <div class="panel">
+          <table class="table">
+            <thead><tr><th>子订单</th><th>商品</th><th>买家</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>SO-240706-01</td><td>M8x30 螺栓 12000件</td><td>苏州某制造公司</td><td><span class="tag tag--amber" data-status>待发货</span></td><td><button class="btn btn--primary" data-ship>录入物流</button></td></tr>
+              <tr><td>SO-240706-02</td><td>M10x40 螺栓 8000件</td><td>杭州设备厂</td><td><span class="tag tag--green" data-status>已发货</span></td><td><button class="btn">查看</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="merchant-settlement">
+        <div class="dash-head"><div><h1>结算与提现</h1><p>平台扣除佣金后，按已完成子订单进入可提现余额。</p></div><button class="btn btn--primary" id="withdrawBtn">申请提现</button></div>
+        <div class="grid-3">
+          <div class="metric"><strong>¥86,420</strong><span>待结算</span></div>
+          <div class="metric"><strong>¥42,180</strong><span>可提现</span></div>
+          <div class="metric"><strong>3.5%</strong><span>平台佣金</span></div>
+        </div>
+        <div class="panel" style="margin-top:18px;">
+          <h2>对账明细</h2>
+          <table class="table">
+            <thead><tr><th>订单</th><th>货款</th><th>平台佣金</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>SO-240705-13</td><td>¥18,600</td><td>¥651</td><td><span class="tag tag--green">已结算</span></td></tr>
+              <tr><td>SO-240706-01</td><td>¥9,840</td><td>¥344</td><td><span class="tag tag--amber">待确认收货</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast"></div>
+  <script src="./assets/prototype.js"></script>
+</body>
+</html>

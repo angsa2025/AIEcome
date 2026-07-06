@@ -1,6 +1,7 @@
 export { navigation } from './navigation.js';
 export { hero } from './hero.js';
 export { positioning } from './positioning.js';
+export { userNeeds } from './userNeeds.js';
 export { analysis } from './analysis.js';
 export { prdIssues } from './prdIssues.js';
 export { datamodel } from './datamodel.js';
@@ -16,4 +17,5 @@ export { admin } from './admin.js';
 export { flow } from './flow.js';
 export { design } from './design.js';
 export { nfr } from './nfr.js';
+export { roadmap } from './roadmap.js';
 export { acceptance } from './acceptance.js';

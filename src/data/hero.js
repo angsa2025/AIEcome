@@ -1,16 +1,17 @@
 export const hero = {
-  badge: { prefix: 'B2B 采购平台 · ', highlight: 'AI 助手', suffix: ' · 智能比价引擎（非普通商城）' },
+  badge: { prefix: 'B2B/B2C 通用电商 · ', highlight: 'AI 采购公海比价', suffix: ' · 非普通商城' },
   title: ['AIEcome', '公海智能比价采购平台'],
   description:
-    '类似 1688 + 京东企业购 + AI 采购助手 + 价格比较网站。核心不是商城，而是 AI 采购、商品标准化、公海智能比价三大能力。',
+    '面向真实采购场景：买家用语音、OCR、图片或长文本说清需求，平台把所有商家货源统一归入公海池，自动做规格换算、质量评分、含税含运费比价和多商家分账。',
   actions: [
-    { label: '🎮 体验交互演示', href: '#interactive', variant: 'primary' },
-    { label: '🏗 查看系统架构', href: '#architecture', variant: 'outline' },
+    { label: '打开高保真原型', href: './prototype/index.html', variant: 'primary' },
+    { label: '体验交互演示', href: '#interactive', variant: 'primary' },
+    { label: '看用户需求映射', href: '#user-needs', variant: 'outline' },
   ],
   stats: [
-    { value: '8', label: '微服务模块' },
-    { value: '3', label: '核心竞争力' },
-    { value: '4', label: '交互演示' },
-    { value: '★5', label: '最难模块级' },
+    { value: '60%', label: '质量权重优先' },
+    { value: '40%', label: '含税综合价格' },
+    { value: '≤3s', label: '千级 SKU 比价' },
+    { value: '百万级', label: '公海 SKU 承载' },
   ],
 };

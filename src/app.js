@@ -3,6 +3,7 @@ import { Nav } from './components/Nav.js';
 import { Hero } from './components/Hero.js';
 import { Footer, BackToTop } from './components/Footer.js';
 import { PositioningSection } from './sections/PositioningSection.js';
+import { UserNeedsSection } from './sections/UserNeedsSection.js';
 import { InteractiveSection } from './sections/InteractiveSection.js';
 import { AnalysisSection } from './sections/AnalysisSection.js';
 import { OverviewSection } from './sections/OverviewSection.js';
@@ -18,12 +19,14 @@ import { PrdIssuesSection } from './sections/PrdIssuesSection.js';
 import { TechStackSection } from './sections/TechStackSection.js';
 import { DesignSection } from './sections/DesignSection.js';
 import { NfrSection } from './sections/NfrSection.js';
+import { RoadmapSection } from './sections/RoadmapSection.js';
 import { AcceptanceSection } from './sections/AcceptanceSection.js';
 import { initScrollSpy, initNavScroll, initBackToTop, initReveal } from './utils/scroll.js';
 import { initMobileNav } from './utils/mobileNav.js';
 
 const SECTION_RENDERERS = [
   () => PositioningSection(data.positioning),
+  () => UserNeedsSection(data.userNeeds),
   () => InteractiveSection(),
   () => AnalysisSection(data.analysis),
   () => OverviewSection(data.overview),
@@ -39,6 +42,7 @@ const SECTION_RENDERERS = [
   () => TechStackSection(data.techstack),
   () => DesignSection(data.design),
   () => NfrSection(data.nfr),
+  () => RoadmapSection(data.roadmap),
   () => AcceptanceSection(data.acceptance),
 ];
 

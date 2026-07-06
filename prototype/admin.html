@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIEcome · 平台总管理后台原型</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/prototype.css" />
+</head>
+<body data-page="admin">
+  <div class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="./index.html"><span class="brand__mark">管</span><span>平台总后台</span></a>
+      <nav class="topbar__links">
+        <a href="./buyer.html">买家端</a>
+        <a href="./merchant.html">商家端</a>
+        <a href="../index.html">PRD 页</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <aside class="sidebar">
+      <div class="side-title">Admin Console</div>
+      <button class="side-link is-active" data-target="admin-dashboard">数据大屏</button>
+      <button class="side-link" data-target="admin-merchants">商家审核</button>
+      <button class="side-link" data-target="admin-sea">公海标准</button>
+      <button class="side-link" data-target="admin-engine">比价引擎</button>
+      <button class="side-link" data-target="admin-finance">资金分账</button>
+      <button class="side-link" data-target="admin-risk">风控预警</button>
+    </aside>
+
+    <main class="main">
+      <section class="page is-active" id="admin-dashboard">
+        <div class="dash-head">
+          <div><h1>平台经营数据</h1><p>公海商品、AI 采购、比价转化、资金分账统一监控。</p></div>
+          <button class="btn btn--primary">导出日报</button>
+        </div>
+        <div class="grid-3">
+          <div class="metric"><strong>1,284,920</strong><span>公海 SKU 总量</span></div>
+          <div class="metric"><strong>94.2%</strong><span>AI 解析成功率</span></div>
+          <div class="metric"><strong>31.6%</strong><span>比价转化下单率</span></div>
+        </div>
+        <div class="grid-2" style="margin-top:18px;">
+          <div class="panel"><h2>热门品类</h2><div class="product-meta"><span class="tag tag--green">五金紧固件 38%</span><span class="tag">钢材 22%</span><span class="tag">包装耗材 14%</span><span class="tag">电器配件 9%</span></div></div>
+          <div class="panel"><h2>今日待处理</h2><table class="table"><tbody><tr><td>商家资质审核</td><td><span class="tag tag--amber">12</span></td></tr><tr><td>商品标准化异常</td><td><span class="tag tag--red">27</span></td></tr><tr><td>提现审核</td><td><span class="tag">8</span></td></tr></tbody></table></div>
+        </div>
+      </section>
+
+      <section class="page" id="admin-merchants">
+        <div class="dash-head"><div><h1>商家入驻审核</h1><p>审核主体资质、质检报告、售后政策，通过后开放商品上架权限。</p></div></div>
+        <div class="panel">
+          <table class="table">
+            <thead><tr><th>商家</th><th>类型</th><th>主营</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>苏州工业紧固件有限公司</td><td>企业商家</td><td>五金紧固件</td><td><span class="tag tag--amber" data-review-status>待审核</span></td><td><button class="btn btn--primary" data-approve="yes">通过</button> <button class="btn btn--danger" data-approve="no">驳回</button></td></tr>
+              <tr><td>永固五金批发</td><td>个人商家</td><td>工业配件</td><td><span class="tag tag--amber" data-review-status>待补资料</span></td><td><button class="btn btn--primary" data-approve="yes">通过</button> <button class="btn btn--danger" data-approve="no">驳回</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="admin-sea">
+        <div class="dash-head"><div><h1>公海商品池标准化</h1><p>把商家非标表达统一成平台可比价的 SPU/SKU、单位和行业规则。</p></div><button class="btn btn--primary" id="standardizeBtn">应用标准化</button></div>
+        <div class="grid-2">
+          <div class="panel">
+            <h2>待标准化商品</h2>
+            <div class="field"><label>商家原始标题</label><input value="六角外六角螺丝 M8 30mm SUS304 1000个一箱" /></div>
+            <div class="field"><label>商家原始规格</label><textarea>材质：304/SUS304；包装：1000个/箱；报价：820元/箱；含税；苏州发货。</textarea></div>
+            <button class="btn" id="standardizeBtn">AI 辅助识别</button>
+          </div>
+          <div class="panel">
+            <h2>标准化结果</h2>
+            <div class="product-meta" id="standardizeResult">
+              <span class="tag">等待识别</span>
+            </div>
+            <p style="color:var(--ink-2);line-height:1.7;margin-top:16px;">识别后会写入行业规则库，后续相似商品可自动归集到同一公海 SKU。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="admin-engine">
+        <div class="dash-head"><div><h1>AI 比价引擎配置</h1><p>配置质量/价格权重、过滤规则、词库和类目规则，默认质量优先。</p></div><button class="btn btn--primary" id="saveWeights">保存规则</button></div>
+        <div class="grid-2">
+          <div class="panel">
+            <h2>综合排序权重</h2>
+            <div class="slider-row"><label>质量权重</label><input id="qualityWeight" type="range" min="40" max="90" value="60" /><strong id="qualityWeightText">60%</strong></div>
+            <div class="slider-row"><label>价格权重</label><input id="priceWeight" type="range" min="10" max="60" value="40" /><strong id="priceWeightText">40%</strong></div>
+            <p style="color:var(--ink-2);line-height:1.7;">公式：质量得分 × 质量权重 + (1 - 综合单价 / 公海均价) × 价格权重。</p>
+          </div>
+          <div class="panel">
+            <h2>过滤规则</h2>
+            <label><input type="checkbox" checked /> 屏蔽无质检报告商品</label><br><br>
+            <label><input type="checkbox" checked /> 屏蔽交期超过采购需求商品</label><br><br>
+            <label><input type="checkbox" checked /> 屏蔽库存不足商品</label><br><br>
+            <label><input type="checkbox" /> 屏蔽质量分低于 70 的商品</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="admin-finance">
+        <div class="dash-head"><div><h1>交易与多方分账</h1><p>买家一次付款，平台根据订单明细拆分给供货商、平台和三方服务公司。</p></div><button class="btn btn--primary" id="exportFinance">导出对账</button></div>
+        <div class="panel">
+          <table class="table">
+            <thead><tr><th>主订单</th><th>总金额</th><th>供货商</th><th>平台服务费</th><th>三方服务费</th><th>状态</th></tr></thead>
+            <tbody>
+              <tr><td>O20260706001</td><td>¥28,640</td><td>¥26,880</td><td>¥1,002</td><td>¥758</td><td><span class="tag tag--green">已分账</span></td></tr>
+              <tr><td>O20260706002</td><td>¥43,900</td><td>¥41,420</td><td>¥1,536</td><td>¥944</td><td><span class="tag tag--amber">待确认收货</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="admin-risk">
+        <div class="dash-head"><div><h1>安全风控与异常预警</h1><p>围绕公海报价、质量评分、资金和账号进行留痕监控。</p></div></div>
+        <div class="grid-3">
+          <div class="panel"><h2>虚假标价</h2><p style="color:var(--ink-2);line-height:1.7;">12 个报价显著低于公海均价 35%，建议人工复核。</p><span class="tag tag--red">高风险</span></div>
+          <div class="panel"><h2>低质商品</h2><p style="color:var(--ink-2);line-height:1.7;">4 个 SKU 售后率超过 18%，已降低推荐权重。</p><span class="tag tag--amber">观察</span></div>
+          <div class="panel"><h2>资金留痕</h2><p style="color:var(--ink-2);line-height:1.7;">所有提现、退款、佣金变动均已记录操作日志。</p><span class="tag tag--green">正常</span></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast"></div>
+  <script src="./assets/prototype.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-import { el } from '../utils/dom.js';
+import { el } from '../../utils/dom.js';
 import { SeaPoolDemo } from './SeaPoolDemo.js';
 import { SpecConverterDemo } from './SpecConverterDemo.js';
 import { CompareEngineDemo } from './CompareEngineDemo.js';

@@ -1,4 +1,4 @@
-import { el } from '../utils/dom.js';
+import { el } from '../../utils/dom.js';
 
 const MERCHANTS = [
   { id: 'a', name: '华强钢铁', price: 10.0, badge: 'A' },

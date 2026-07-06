@@ -1,4 +1,4 @@
-import { el } from '../utils/dom.js';
+import { el } from '../../utils/dom.js';
 
 const EXAMPLES = [
   { input: '1000 kg', output: '1 吨', factor: '÷ 1000' },

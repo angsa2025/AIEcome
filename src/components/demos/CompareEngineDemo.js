@@ -1,4 +1,4 @@
-import { el } from '../utils/dom.js';
+import { el } from '../../utils/dom.js';
 import { compareProducts, defaultWeights } from '../../data/compareProducts.js';
 
 const WEIGHT_LABELS = {

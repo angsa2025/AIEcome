@@ -1,4 +1,4 @@
-import { el } from '../utils/dom.js';
+import { el } from '../../utils/dom.js';
 
 const SAMPLES = [
   '我要螺栓，材质 42CrMo，国标一级，交货 7 天内，1000个',

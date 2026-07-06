@@ -8,11 +8,20 @@ function Frame({ terminal }) {
   return el('article', { className: `prototype-terminal prototype-terminal--${terminal.type}` },
     el('div', { className: 'prototype-terminal__meta' },
       el('div', {},
+        el('span', { className: 'prototype-terminal__channel' }, terminal.channel),
         el('h3', {}, terminal.title),
         el('p', {}, terminal.subtitle)
       ),
-      el('div', { className: 'prototype-terminal__badges' },
-        ...terminal.badges.map((badge) => el('span', {}, badge))
+      el('div', { className: 'prototype-terminal__side' },
+        el('a', {
+          className: 'prototype-terminal__open',
+          href: terminal.href,
+          target: '_blank',
+          rel: 'noopener',
+        }, terminal.action),
+        el('div', { className: 'prototype-terminal__badges' },
+          ...terminal.badges.map((badge) => el('span', {}, badge))
+        )
       )
     ),
     el('div', { className: frameClass },
@@ -41,6 +50,20 @@ export function PrototypeSection(data) {
     title: data.title,
     description: data.description,
     children: [
+      el('div', { className: 'prototype-link-grid' },
+        ...data.terminals.map((terminal) =>
+          el('a', {
+            className: 'prototype-link-card',
+            href: terminal.href,
+            target: '_blank',
+            rel: 'noopener',
+          },
+            el('span', { className: 'prototype-link-card__channel' }, terminal.channel),
+            el('strong', {}, terminal.title),
+            el('span', {}, terminal.action)
+          )
+        )
+      ),
       el('div', { className: 'prototype-showcase' },
         Frame({ terminal: data.terminals[0] }),
         el('div', { className: 'prototype-showcase__stack' },

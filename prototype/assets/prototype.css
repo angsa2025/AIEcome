@@ -2658,8 +2658,11 @@ body[data-page="merchant"] .admin-topbar {
 }
 
 body[data-page="merchant"] .admin-topbar .topbar__inner {
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   padding: 0 18px 0 16px;
+  box-sizing: border-box;
 }
 
 body[data-page="merchant"] .brand__mark {
@@ -2720,7 +2723,7 @@ body[data-page="merchant"] .admin-main {
   min-width: 0;
   max-width: calc(100vw - 232px);
   overflow-x: hidden;
-  padding: 18px;
+  padding: 12px;
   background: var(--admin-bg);
 }
 

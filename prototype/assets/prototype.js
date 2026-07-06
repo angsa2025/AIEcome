@@ -16,6 +16,10 @@ const products = [
     quality: 96,
     cert: '国标证书 + 第三方检测',
     location: '苏州仓',
+    category: '五金紧固件',
+    visual: 'M8',
+    specs: ['1000件/箱', '5000件/托', '20000件/批'],
+    desc: '国标一级高强螺栓，含质检报告，适合机械装配和工业维修。',
   },
   {
     id: 'bolt-b',
@@ -29,6 +33,10 @@ const products = [
     quality: 88,
     cert: '质检报告齐全',
     location: '无锡仓',
+    category: '五金紧固件',
+    visual: 'M8',
+    specs: ['500件/箱', '2000件/箱', '10000件/批'],
+    desc: '合金钢外六角螺丝，库存稳定，可开增值税专票。',
   },
   {
     id: 'bolt-c',
@@ -42,10 +50,17 @@ const products = [
     quality: 72,
     cert: '基础质检',
     location: '临沂仓',
+    category: '五金紧固件',
+    visual: '42',
+    specs: ['1000件/包', '10000件/批', '50000件/车'],
+    desc: '高强度螺栓大货报价，适合成本优先型采购。',
   },
 ];
 
 const cart = new Map();
+let selectedProductId = products[0].id;
+let selectedQty = 1000;
+let selectedSpec = products[0].specs[0];
 
 function toast(message) {
   let node = $('.toast');
@@ -95,6 +110,129 @@ function bindTabs(containerSelector, linkSelector, pageSelector) {
   });
 }
 
+function showBuyerPage(target) {
+  const navTargetMap = {
+    'buyer-product-detail': 'buyer-products',
+    'buyer-checkout': 'buyer-cart',
+    'buyer-aftersale': 'buyer-orders',
+    'buyer-compare': 'buyer-products',
+  };
+  $$('.mobile-page').forEach((page) => page.classList.toggle('is-active', page.id === target));
+  $$('.mobile-nav [data-target]').forEach((item) => {
+    const activeTarget = navTargetMap[target] || target;
+    item.classList.toggle('is-active', item.dataset.target === activeTarget);
+  });
+  if (target === 'buyer-cart') renderCart();
+  if (target === 'buyer-checkout') renderCheckoutPage();
+  $('.buyer-screen')?.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function addToCart(id, qty = 1000) {
+  const item = products.find((p) => p.id === id);
+  if (!item) return;
+  const old = cart.get(item.id) || { ...item, qty: 0, spec: selectedSpec || item.specs[0] };
+  old.qty += qty;
+  old.spec = selectedSpec || old.spec || item.specs[0];
+  cart.set(item.id, old);
+  updateCartBar();
+  renderCart();
+  toast(`${item.merchant} 已加入购物车 ${qty.toLocaleString()} 件`);
+}
+
+function renderProductShelf() {
+  const shelf = $('#productShelf');
+  if (!shelf) return;
+  shelf.innerHTML = products.map((item) => `
+    <article class="buyer-product-tile">
+      <button class="buyer-product-thumb" data-view-product="${item.id}" type="button">${item.visual}</button>
+      <div class="buyer-product-info">
+        <h3>${item.name}</h3>
+        <p>${item.desc}</p>
+        <div class="product-meta">
+          <span class="tag tag--green">${item.category}</span>
+          <span class="tag">${item.location}</span>
+          <span class="tag">库存 ${item.stock.toLocaleString()} 件</span>
+        </div>
+        <div class="buyer-product-bottom">
+          <strong>${money.format(item.price)} / 件</strong>
+          <div>
+            <button class="btn" data-add-cart="${item.id}" type="button">加购</button>
+            <button class="btn btn--primary" data-buy-now="${item.id}" type="button">购买</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+function openProductDetail(id) {
+  const item = products.find((p) => p.id === id) || products[0];
+  selectedProductId = item.id;
+  selectedQty = 1000;
+  selectedSpec = item.specs[0];
+  $('#detailVisual').textContent = item.visual;
+  $('#detailTitle').textContent = item.name;
+  $('#detailPrice').textContent = `${money.format(item.price)} / 件`;
+  $('#detailDesc').textContent = item.desc;
+  $('#detailQty').textContent = selectedQty.toLocaleString();
+  $('#detailMeta').innerHTML = `
+    <span class="tag tag--green">${item.merchant}</span>
+    <span class="tag">${item.location}</span>
+    <span class="tag">${item.cert}</span>
+    <span class="tag">交货 ${item.days} 天</span>
+  `;
+  $('#detailSpecs').innerHTML = item.specs.map((spec, index) => `
+    <button class="${index === 0 ? 'is-active' : ''}" data-spec="${spec}" type="button">${spec}</button>
+  `).join('');
+  showBuyerPage('buyer-product-detail');
+}
+
+function renderCart() {
+  const lines = $('#cartLines');
+  if (!lines) return;
+  const items = [...cart.values()];
+  if (!items.length) {
+    lines.innerHTML = '<div class="buyer-empty">购物车为空，先去商品货架选购或从比价结果加购。</div>';
+    return;
+  }
+  lines.innerHTML = items.map((item) => `
+    <div class="buyer-cart-line">
+      <div>
+        <strong>${item.name}</strong>
+        <span>${item.merchant} · ${item.spec || item.specs?.[0] || '标准包装'}</span>
+      </div>
+      <div>
+        <strong>${item.qty.toLocaleString()} 件</strong>
+        <span>${money.format(item.qty * item.price)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCheckoutPage() {
+  const items = [...cart.values()];
+  const lines = $('#checkoutPageLines');
+  if (!lines) return;
+  if (!items.length) {
+    lines.innerHTML = '<div class="buyer-empty">暂无待下单商品。</div>';
+  } else {
+    lines.innerHTML = items.map((item) => `
+      <div class="buyer-order-line">
+        <div>
+          <strong>${item.name}</strong>
+          <span>${item.merchant} · ${item.qty.toLocaleString()} 件</span>
+        </div>
+        <strong>${money.format(item.qty * item.price)}</strong>
+      </div>
+    `).join('');
+  }
+  const subtotal = items.reduce((sum, item) => sum + item.qty * item.price, 0);
+  const freight = items.length ? items.reduce((sum, item) => sum + item.freight, 0) : 0;
+  $('#checkoutSubtotal').textContent = money.format(subtotal);
+  $('#checkoutFreight').textContent = money.format(freight);
+  $('#checkoutTotal').textContent = money.format(subtotal + freight);
+}
+
 function renderCompare(sort = 'best') {
   const list = $('#compareList');
   if (!list) return;
@@ -142,14 +280,17 @@ function updateCartBar() {
 }
 
 function initBuyer() {
-  bindTabs('.mobile-nav', '[data-target]', '.mobile-page');
+  $$('.mobile-nav [data-target]').forEach((link) => {
+    link.addEventListener('click', () => showBuyerPage(link.dataset.target));
+  });
   renderCompare();
+  renderProductShelf();
+  renderCart();
   updateCartBar();
 
   $$('[data-mobile-target]').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const nav = $(`.mobile-nav [data-target="${btn.dataset.mobileTarget}"]`);
-      nav?.click();
+      showBuyerPage(btn.dataset.mobileTarget);
     });
   });
 
@@ -171,7 +312,7 @@ function initBuyer() {
   });
 
   $('#runCompare')?.addEventListener('click', () => {
-    $('.mobile-nav [data-target="buyer-compare"]')?.click();
+    showBuyerPage('buyer-compare');
     renderCompare();
     toast('已从公海池匹配 3 个可比价报价');
   });
@@ -179,29 +320,90 @@ function initBuyer() {
   $('#sortMode')?.addEventListener('change', (event) => renderCompare(event.target.value));
 
   document.addEventListener('click', (event) => {
+    const view = event.target.closest('[data-view-product]');
+    if (view) {
+      openProductDetail(view.dataset.viewProduct);
+      return;
+    }
+
+    const buy = event.target.closest('[data-buy-now]');
+    if (buy) {
+      selectedSpec = products.find((p) => p.id === buy.dataset.buyNow)?.specs?.[0] || selectedSpec;
+      addToCart(buy.dataset.buyNow, 1000);
+      showBuyerPage('buyer-checkout');
+      return;
+    }
+
     const add = event.target.closest('[data-add-cart]');
     if (add) {
-      const item = products.find((p) => p.id === add.dataset.addCart);
-      const old = cart.get(item.id) || { ...item, qty: 0 };
-      old.qty += 1000;
-      cart.set(item.id, old);
-      updateCartBar();
-      toast(`${item.merchant} 已加入购物车 1000 件`);
+      addToCart(add.dataset.addCart, 1000);
+      return;
+    }
+
+    const spec = event.target.closest('[data-spec]');
+    if (spec) {
+      selectedSpec = spec.dataset.spec;
+      $$('#detailSpecs [data-spec]').forEach((btn) => btn.classList.toggle('is-active', btn === spec));
     }
   });
 
   $('#checkoutBtn')?.addEventListener('click', () => {
-    $('#checkoutLines').innerHTML = [...cart.values()].map((item) => `
-      <tr><td>${item.name}<br><span class="tag">${item.merchant}</span></td><td>${item.qty.toLocaleString()} 件</td><td>${money.format(item.qty * item.price)}</td></tr>
-    `).join('') || '<tr><td colspan="3">购物车为空，请先加入报价。</td></tr>';
-    openModal('checkoutModal');
+    renderCheckoutPage();
+    showBuyerPage('buyer-checkout');
+  });
+
+  $('#cartCheckoutBtn')?.addEventListener('click', () => {
+    renderCheckoutPage();
+    showBuyerPage('buyer-checkout');
+  });
+
+  $('#qtyMinus')?.addEventListener('click', () => {
+    selectedQty = Math.max(1000, selectedQty - 1000);
+    $('#detailQty').textContent = selectedQty.toLocaleString();
+  });
+
+  $('#qtyPlus')?.addEventListener('click', () => {
+    selectedQty += 1000;
+    $('#detailQty').textContent = selectedQty.toLocaleString();
+  });
+
+  $('#detailAddCart')?.addEventListener('click', () => addToCart(selectedProductId, selectedQty));
+
+  $('#detailBuyNow')?.addEventListener('click', () => {
+    addToCart(selectedProductId, selectedQty);
+    renderCheckoutPage();
+    showBuyerPage('buyer-checkout');
+  });
+
+  $('#placeOrderBtn')?.addEventListener('click', () => {
+    if (!cart.size) return toast('请先选择商品');
+    cart.clear();
+    updateCartBar();
+    renderCart();
+    showBuyerPage('buyer-orders');
+    toast('下单支付成功，订单已进入商家履约流程');
+  });
+
+  $('#uploadEvidence')?.addEventListener('click', () => {
+    $('#evidenceState').textContent = '已上传 3 张照片 + 1 份质检说明';
+    toast('售后凭证已上传');
+  });
+
+  $('#submitAfterSale')?.addEventListener('click', () => {
+    $('#afterSaleTimeline').innerHTML = `
+      <div class="is-done"><strong>买家提交申请</strong><span>质量问题退货退款 · 凭证已上传</span></div>
+      <div class="is-active"><strong>商家响应</strong><span>华东紧固件工厂需在 24 小时内处理</span></div>
+      <div><strong>平台介入</strong><span>超时或争议时自动介入</span></div>
+      <div><strong>退款/补发完成</strong><span>待商家确认方案</span></div>
+    `;
+    toast('售后申请已提交，已同步商家端和平台后台');
   });
 
   $('#payBtn')?.addEventListener('click', () => {
     closeModal('checkoutModal');
     cart.clear();
     updateCartBar();
-    $('.mobile-nav [data-target="buyer-orders"]')?.click();
+    showBuyerPage('buyer-orders');
     toast('支付成功，系统已拆分子订单并进入分账队列');
   });
 }
@@ -227,6 +429,15 @@ function initMerchant() {
       btn.closest('tr').querySelector('[data-status]').textContent = '已发货';
       btn.closest('tr').querySelector('[data-status]').className = 'tag tag--green';
       toast('物流单号已录入，买家端订单状态同步更新');
+    });
+  });
+
+  $$('[data-after-accept]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const status = btn.closest('tr').querySelector('[data-after-status]');
+      status.textContent = '已同意补发';
+      status.className = 'tag tag--green';
+      toast('售后方案已同步买家端，平台后台可追踪');
     });
   });
 
@@ -271,6 +482,15 @@ function initAdmin() {
   $('#saveWeights')?.addEventListener('click', () => toast('比价权重已保存，下一次搜索实时生效'));
 
   $('#exportFinance')?.addEventListener('click', () => toast('已生成分账对账 Excel'));
+
+  $$('[data-admin-after]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const status = btn.closest('tr').querySelector('[data-admin-after-status]');
+      status.textContent = '平台判定补发';
+      status.className = 'tag tag--green';
+      toast('仲裁结果已通知买家与商家，并进入履约跟踪');
+    });
+  });
 }
 
 function initIndex() {

@@ -45,15 +45,15 @@
         </div>
 
         <div class="quick-grid">
+          <button class="quick" data-mobile-target="buyer-products" type="button"><span>▦</span>商品选购</button>
           <button class="quick" data-mobile-target="buyer-ai" type="button"><span>🎙</span>语音采购</button>
           <button class="quick" id="ocrBtn" type="button"><span>▣</span>OCR 单据</button>
           <button class="quick" data-mobile-target="buyer-compare" type="button"><span>↕</span>公海比价</button>
-          <button class="quick" data-mobile-target="buyer-orders" type="button"><span>□</span>订单追踪</button>
         </div>
 
         <div class="mp-section-header">
           <div class="mp-section-title">今日推荐采购池</div>
-          <button class="mp-section-more" data-mobile-target="buyer-compare" type="button">去比价</button>
+          <button class="mp-section-more" data-mobile-target="buyer-products" type="button">去选购</button>
         </div>
         <article class="mobile-card buyer-pool-card">
           <div class="buyer-pool-card__main">
@@ -65,6 +65,7 @@
             <span class="tag">钢板 8 家可比</span>
             <span class="tag">纸箱 5 家可比</span>
           </div>
+          <button class="btn btn--primary" data-mobile-target="buyer-products" type="button">查看商品货架</button>
         </article>
 
         <div class="buyer-mini-metrics">
@@ -72,6 +73,56 @@
           <div><strong>7天</strong><span>默认交期</span></div>
           <div><strong>100%</strong><span>支持开票</span></div>
         </div>
+      </section>
+
+      <section class="mobile-page" id="buyer-products">
+        <div class="mp-section-header">
+          <div class="mp-section-title">商品展示与选购</div>
+          <span class="buyer-chip">可直接购买</span>
+        </div>
+        <button class="search-pill buyer-search-inline" data-mobile-target="buyer-ai" type="button">
+          <span>⌕</span>
+          搜索螺栓、钢板、包装耗材
+        </button>
+        <div class="mp-filter-tabs">
+          <button class="mp-filter-tab active" type="button">推荐</button>
+          <button class="mp-filter-tab" type="button">五金紧固件</button>
+          <button class="mp-filter-tab" type="button">钢材</button>
+          <button class="mp-filter-tab" type="button">包装耗材</button>
+        </div>
+        <div class="buyer-shelf" id="productShelf"></div>
+      </section>
+
+      <section class="mobile-page" id="buyer-product-detail">
+        <div class="mp-section-header">
+          <button class="mp-section-more" data-mobile-target="buyer-products" type="button">返回货架</button>
+          <span class="buyer-chip">商品详情</span>
+        </div>
+        <article class="mobile-card buyer-detail-card">
+          <div class="buyer-detail-visual" id="detailVisual">M8</div>
+          <div class="buyer-detail-head">
+            <h3 id="detailTitle">M8x30 42CrMo 国标一级螺栓</h3>
+            <strong id="detailPrice">¥0.82 / 件</strong>
+          </div>
+          <p id="detailDesc">含税含质检报告，支持苏州仓快速发货。</p>
+          <div class="product-meta" id="detailMeta"></div>
+          <div class="buyer-detail-block">
+            <div class="buyer-detail-label">规格选择</div>
+            <div class="buyer-spec-row" id="detailSpecs"></div>
+          </div>
+          <div class="buyer-detail-block">
+            <div class="buyer-detail-label">采购数量</div>
+            <div class="buyer-stepper">
+              <button id="qtyMinus" type="button">-</button>
+              <strong id="detailQty">1000</strong>
+              <button id="qtyPlus" type="button">+</button>
+            </div>
+          </div>
+          <div class="buyer-detail-actions">
+            <button class="btn" id="detailAddCart" type="button">加入购物车</button>
+            <button class="btn btn--primary" id="detailBuyNow" type="button">立即购买</button>
+          </div>
+        </article>
       </section>
 
       <section class="mobile-page" id="buyer-ai">
@@ -135,12 +186,44 @@
         <article class="mobile-card buyer-cart-card">
           <h3>一次付款，多商家履约</h3>
           <p>从比价结果加入商品后，系统会按商家自动拆分子订单，买家仍然只需一次付款。</p>
+          <div class="buyer-cart-lines" id="cartLines"></div>
           <div class="buyer-cart-steps">
             <span>报价入车</span>
             <span>合并付款</span>
             <span>平台分账</span>
           </div>
-          <button class="btn btn--primary" data-mobile-target="buyer-compare" type="button">返回比价页加购</button>
+          <button class="btn" data-mobile-target="buyer-products" type="button">继续选购</button>
+          <button class="btn btn--primary" id="cartCheckoutBtn" type="button">去下单</button>
+        </article>
+      </section>
+
+      <section class="mobile-page" id="buyer-checkout">
+        <div class="mp-section-header">
+          <button class="mp-section-more" data-mobile-target="buyer-cart" type="button">返回购物车</button>
+          <span class="buyer-chip">确认订单</span>
+        </div>
+        <article class="mobile-card buyer-checkout-card">
+          <h3>收货与发票</h3>
+          <div class="buyer-address-card">
+            <strong>苏州某制造公司 · 王经理</strong>
+            <span>苏州市工业园区星湖街 328 号 · 138****6026</span>
+          </div>
+          <div class="buyer-option-row">
+            <span>配送方式</span>
+            <strong>商家直发 / 平台跟踪</strong>
+          </div>
+          <div class="buyer-option-row">
+            <span>发票</span>
+            <strong>增值税专票</strong>
+          </div>
+        </article>
+        <article class="mobile-card buyer-checkout-card">
+          <h3>商品明细</h3>
+          <div class="buyer-order-lines" id="checkoutPageLines"></div>
+          <div class="buyer-total-row"><span>商品小计</span><strong id="checkoutSubtotal">¥0.00</strong></div>
+          <div class="buyer-total-row"><span>运费预估</span><strong id="checkoutFreight">¥0.00</strong></div>
+          <div class="buyer-total-row total"><span>应付合计</span><strong id="checkoutTotal">¥0.00</strong></div>
+          <button class="btn btn--primary" id="placeOrderBtn" type="button">提交订单并支付</button>
         </article>
       </section>
 
@@ -164,17 +247,54 @@
         <article class="mobile-card">
           <h3>售后入口</h3>
           <p>支持质量问题退货、退款、补发，上传质检凭证后进入商家和平台协商流程。</p>
-          <button class="btn" type="button">提交售后申请</button>
+          <button class="btn btn--primary" data-mobile-target="buyer-aftersale" type="button">申请售后</button>
+        </article>
+      </section>
+
+      <section class="mobile-page" id="buyer-aftersale">
+        <div class="mp-section-header">
+          <button class="mp-section-more" data-mobile-target="buyer-orders" type="button">返回订单</button>
+          <span class="buyer-chip">售后流程</span>
+        </div>
+        <article class="mobile-card buyer-after-card">
+          <h3>售后申请</h3>
+          <div class="field">
+            <label>售后类型</label>
+            <select id="afterType">
+              <option>质量问题退货退款</option>
+              <option>少件补发</option>
+              <option>换货</option>
+              <option>仅退款</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>问题描述</label>
+            <textarea id="afterReason">收到 1000 件中有 35 件螺纹破损，已拍照留证，申请补发或退款。</textarea>
+          </div>
+          <div class="buyer-evidence-row">
+            <button class="btn" id="uploadEvidence" type="button">上传凭证</button>
+            <span id="evidenceState">未上传</span>
+          </div>
+          <button class="btn btn--primary" id="submitAfterSale" type="button">提交售后申请</button>
+        </article>
+        <article class="mobile-card buyer-after-card">
+          <h3>处理进度</h3>
+          <div class="buyer-after-timeline" id="afterSaleTimeline">
+            <div><strong>买家提交申请</strong><span>等待上传凭证</span></div>
+            <div><strong>商家响应</strong><span>待处理</span></div>
+            <div><strong>平台介入</strong><span>必要时自动介入</span></div>
+            <div><strong>退款/补发完成</strong><span>待完成</span></div>
+          </div>
         </article>
       </section>
     </main>
 
     <nav class="mobile-nav" aria-label="买家小程序导航">
       <button class="is-active" data-target="buyer-home" type="button"><span>⌂</span>首页</button>
-      <button data-target="buyer-compare" type="button"><span>↕</span>比价</button>
+      <button data-target="buyer-products" type="button"><span>▦</span>商品</button>
       <button class="mobile-nav__fab" data-target="buyer-ai" type="button"><span>AI</span>采购</button>
       <button data-target="buyer-cart" type="button"><span>▤</span>购物车</button>
-      <button data-target="buyer-orders" type="button"><span>□</span>订单</button>
+      <button data-target="buyer-orders" type="button"><span>□</span>订单/售后</button>
     </nav>
   </div>
 

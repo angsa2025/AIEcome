@@ -28,6 +28,7 @@
       <button class="side-link" data-target="merchant-onboarding">入驻资料</button>
       <button class="side-link" data-target="merchant-products">商品上架</button>
       <button class="side-link" data-target="merchant-orders">订单履约</button>
+      <button class="side-link" data-target="merchant-aftersale">售后处理</button>
       <button class="side-link" data-target="merchant-settlement">结算提现</button>
     </aside>
 
@@ -114,6 +115,25 @@
             <tbody>
               <tr><td>SO-240706-01</td><td>M8x30 螺栓 12000件</td><td>苏州某制造公司</td><td><span class="tag tag--amber" data-status>待发货</span></td><td><button class="btn btn--primary" data-ship>录入物流</button></td></tr>
               <tr><td>SO-240706-02</td><td>M10x40 螺栓 8000件</td><td>杭州设备厂</td><td><span class="tag tag--green" data-status>已发货</span></td><td><button class="btn">查看</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="merchant-aftersale">
+        <div class="dash-head"><div><h1>售后处理</h1><p>商家处理补发、退款、换货，超时或争议会进入平台仲裁。</p></div></div>
+        <div class="grid-3">
+          <div class="metric"><strong>6</strong><span>待响应</span></div>
+          <div class="metric"><strong>92%</strong><span>24小时响应率</span></div>
+          <div class="metric"><strong>1.8%</strong><span>近30天售后率</span></div>
+        </div>
+        <div class="panel" style="margin-top:18px;">
+          <h2>售后工单</h2>
+          <table class="table">
+            <thead><tr><th>工单</th><th>订单/商品</th><th>问题</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>AS-240706-01</td><td>SO-240706-01<br><span class="tag">M8x30 螺栓</span></td><td>35 件螺纹破损，买家已上传照片</td><td><span class="tag tag--amber" data-after-status>待响应</span></td><td><button class="btn btn--primary" data-after-accept>同意补发</button></td></tr>
+              <tr><td>AS-240705-09</td><td>SO-240705-13<br><span class="tag">包装耗材</span></td><td>少发 2 箱</td><td><span class="tag tag--green">已补发</span></td><td><button class="btn">查看</button></td></tr>
             </tbody>
           </table>
         </div>

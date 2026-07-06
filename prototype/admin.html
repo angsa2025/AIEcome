@@ -29,6 +29,7 @@
       <button class="side-link" data-target="admin-sea">公海标准</button>
       <button class="side-link" data-target="admin-engine">比价引擎</button>
       <button class="side-link" data-target="admin-finance">资金分账</button>
+      <button class="side-link" data-target="admin-aftersale">售后仲裁</button>
       <button class="side-link" data-target="admin-risk">风控预警</button>
     </aside>
 
@@ -108,6 +109,25 @@
             <tbody>
               <tr><td>O20260706001</td><td>¥28,640</td><td>¥26,880</td><td>¥1,002</td><td>¥758</td><td><span class="tag tag--green">已分账</span></td></tr>
               <tr><td>O20260706002</td><td>¥43,900</td><td>¥41,420</td><td>¥1,536</td><td>¥944</td><td><span class="tag tag--amber">待确认收货</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="admin-aftersale">
+        <div class="dash-head"><div><h1>售后仲裁与退款</h1><p>统一跟踪买家申请、商家响应、平台介入、退款/补发结果。</p></div><button class="btn btn--primary">导出售后报表</button></div>
+        <div class="grid-3">
+          <div class="metric"><strong>43</strong><span>处理中工单</span></div>
+          <div class="metric"><strong>11</strong><span>需平台介入</span></div>
+          <div class="metric"><strong>96.4%</strong><span>按时完结率</span></div>
+        </div>
+        <div class="panel" style="margin-top:18px;">
+          <h2>争议工单</h2>
+          <table class="table">
+            <thead><tr><th>工单</th><th>买家/商家</th><th>问题</th><th>证据</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>AS-240706-01</td><td>苏州某制造公司<br><span class="tag">华东紧固件工厂</span></td><td>螺纹破损，买家申请补发或退款</td><td>3张照片 + 质检说明</td><td><span class="tag tag--amber" data-admin-after-status>商家响应中</span></td><td><button class="btn btn--primary" data-admin-after>判定补发</button></td></tr>
+              <tr><td>AS-240705-06</td><td>杭州设备厂<br><span class="tag">永固五金批发</span></td><td>少件争议</td><td>物流称重记录</td><td><span class="tag tag--green">已退款</span></td><td><button class="btn">查看</button></td></tr>
             </tbody>
           </table>
         </div>

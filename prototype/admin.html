@@ -285,6 +285,20 @@
     </main>
   </div>
 
+  <div class="modal admin-action-modal" id="adminActionModal">
+    <div class="modal__card admin-action-modal__card">
+      <div class="modal__head">
+        <h2 id="adminActionTitle">操作</h2>
+        <button class="btn" data-close-modal="adminActionModal" type="button">关闭</button>
+      </div>
+      <div class="admin-action-modal__body" id="adminActionBody"></div>
+      <div class="admin-action-modal__footer">
+        <button class="btn" data-close-modal="adminActionModal" type="button">取消</button>
+        <button class="btn btn--primary" id="adminActionConfirm" type="button">保存</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast"></div>
   <script src="./assets/prototype.js"></script>
 </body>

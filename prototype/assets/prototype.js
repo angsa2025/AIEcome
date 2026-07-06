@@ -110,6 +110,32 @@ function bindTabs(containerSelector, linkSelector, pageSelector) {
   });
 }
 
+function showAdminAction(title, bodyHtml, confirmText = '保存', onConfirm = null) {
+  const modal = $('#adminActionModal');
+  const titleNode = $('#adminActionTitle');
+  const bodyNode = $('#adminActionBody');
+  const confirm = $('#adminActionConfirm');
+  if (!modal || !titleNode || !bodyNode || !confirm) return;
+  titleNode.textContent = title;
+  bodyNode.innerHTML = bodyHtml;
+  confirm.textContent = confirmText;
+  confirm.onclick = () => {
+    if (typeof onConfirm === 'function') onConfirm();
+    closeModal('adminActionModal');
+  };
+  openModal('adminActionModal');
+}
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[char]));
+}
+
 function showBuyerPage(target) {
   const navTargetMap = {
     'buyer-product-detail': 'buyer-products',
@@ -447,12 +473,31 @@ function initMerchant() {
 function initAdmin() {
   bindTabs('.sidebar', '[data-target]', '.page');
 
+  const setAdminPage = (target) => {
+    const side = $(`.sidebar [data-target="${target}"]`);
+    side?.click();
+  };
+  const rowTitle = (row) => row?.querySelector('strong')?.textContent?.trim() || row?.cells?.[0]?.textContent?.trim() || '当前记录';
+  const setStatus = (node, text, className = 'tag tag--green') => {
+    if (!node) return;
+    node.textContent = text;
+    node.className = className;
+  };
+  const setResultChip = (filter) => {
+    let chip = filter.querySelector('.admin-result-chip');
+    if (!chip) {
+      chip = document.createElement('span');
+      chip.className = 'admin-result-chip';
+      filter.append(chip);
+    }
+    chip.textContent = `已筛出 ${Math.floor(Math.random() * 18) + 6} 条`;
+  };
+  const detailList = (items) => `<div class="admin-modal-list">${items.map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join('')}</div>`;
+
   $$('[data-target]').forEach((btn) => {
     if (btn.closest('.sidebar')) return;
     btn.addEventListener('click', () => {
-      const target = btn.dataset.target;
-      const side = $(`.sidebar [data-target="${target}"]`);
-      side?.click();
+      setAdminPage(btn.dataset.target);
     });
   });
 
@@ -487,7 +532,16 @@ function initAdmin() {
   }));
 
   $$('[data-open-detail]').forEach((btn) => btn.addEventListener('click', () => {
-    toast('已打开商品详情：品牌、类目、SPU/SKU、报价与质检信息已同步展示');
+    const row = btn.closest('tr');
+    showAdminAction('商品详情', `
+      ${detailList([
+        ['商品', escapeHtml(rowTitle(row))],
+        ['标准 SPU', 'SPU-BOLT-HIGH'],
+        ['规格', 'M8x30 / 42CrMo / 国标一级'],
+        ['报价', '3 家商家可比价，最低 ¥0.69'],
+      ])}
+      <div class="admin-modal-note">可在这里完成品牌、类目、SPU/SKU、质检报告和报价来源的统一校验。</div>
+    `, '同步到商品池', () => toast('商品详情已同步展示到商品池'));
   }));
 
   const quality = $('#qualityWeight');
@@ -509,23 +563,297 @@ function initAdmin() {
 
   $$('[data-admin-order-ship]').forEach((btn) => {
     btn.addEventListener('click', () => {
+      if (btn.textContent.trim() === '查看物流') {
+        showAdminAction('物流进度', `
+          ${detailList([
+            ['订单', escapeHtml(btn.closest('tr')?.cells?.[0]?.textContent || '当前订单')],
+            ['承运商', '顺丰重货'],
+            ['物流单号', 'SF2026070608842'],
+            ['当前节点', '苏州分拨中心已揽收'],
+          ])}
+        `, '确认');
+        return;
+      }
       const status = btn.closest('tr').querySelector('[data-admin-order-status]');
       status.textContent = '已发货';
       status.className = 'tag tag--green';
+      btn.textContent = '查看物流';
+      btn.classList.remove('btn--primary');
       toast('订单已标记发货，买家端订单状态同步更新');
     });
   });
 
   $$('[data-admin-after]').forEach((btn) => {
     btn.addEventListener('click', () => {
+      if (btn.textContent.trim() === '查看进度') {
+        showAdminAction('售后履约进度', `
+          ${detailList([
+            ['工单', escapeHtml(btn.closest('tr')?.cells?.[0]?.textContent || '当前工单')],
+            ['平台判定', '商家补发并承担物流费用'],
+            ['买家通知', '已同步买家端售后详情'],
+            ['履约 SLA', '48 小时内补发出库'],
+          ])}
+        `, '确认');
+        return;
+      }
       const status = btn.closest('tr').querySelector('[data-admin-after-status]');
       status.textContent = '平台判定补发';
       status.className = 'tag tag--green';
+      btn.textContent = '查看进度';
+      btn.classList.remove('btn--primary');
       toast('仲裁结果已通知买家与商家，并进入履约跟踪');
     });
   });
 
-  $('#publishCampaign')?.addEventListener('click', () => toast('营销活动已发布：首页 Banner、优惠券和商品推荐位已更新'));
+  $$('.admin-upload-grid div').forEach((box) => {
+    box.addEventListener('click', () => {
+      box.classList.add('is-uploaded');
+      box.textContent = `${box.textContent.replace('已上传', '').trim()} 已上传`;
+      toast('素材已上传并完成格式校验');
+    });
+  });
+
+  $$('.admin-brand-list button').forEach((brand) => {
+    brand.addEventListener('click', () => {
+      $$('.admin-brand-list button').forEach((item) => item.classList.toggle('is-active', item === brand));
+      toast(`已切换品牌：${brand.querySelector('strong')?.textContent || '商品品牌'}`);
+    });
+  });
+
+  $$('.admin-tree-list div').forEach((category) => {
+    category.addEventListener('click', () => {
+      $$('.admin-tree-list div').forEach((item) => item.classList.toggle('is-active', item === category));
+      toast(`已选择类目：${category.querySelector('strong')?.textContent || '商品类目'}`);
+    });
+  });
+
+  $$('.admin-tabs button').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      $$('.admin-tabs button').forEach((item) => item.classList.toggle('is-active', item === tab));
+      toast(`${tab.textContent.trim()}列表已刷新`);
+    });
+  });
+
+  $$('#admin-engine input[type="checkbox"]').forEach((box) => {
+    box.addEventListener('change', () => toast(box.checked ? '过滤规则已启用' : '过滤规则已停用'));
+  });
+
+  $('.admin-main')?.addEventListener('click', (event) => {
+    const btn = event.target.closest('button');
+    if (!btn || btn.dataset.target || btn.dataset.approve || btn.dataset.adminOrderShip !== undefined || btn.dataset.adminAfter !== undefined || btn.dataset.openDetail !== undefined) return;
+    if (btn.id === 'publishSelfProduct' || btn.id === 'standardizeBtn' || btn.id === 'saveWeights' || btn.id === 'saveAdminSettings') return;
+
+    const text = btn.textContent.trim();
+    const row = btn.closest('tr');
+    const panel = btn.closest('.admin-panel');
+    const promo = btn.closest('.admin-promo-list > div');
+
+    if (text === '刷新') {
+      $$('.admin-metric em').forEach((item, index) => {
+        if (index === 0) item.textContent = '刚刚刷新 +19.2%';
+      });
+      toast('运营数据已刷新到最新状态');
+      return;
+    }
+
+    if (text === '导出日报') {
+      showAdminAction('导出日报', `
+        ${detailList([
+          ['统计范围', '今日 00:00 - 当前时间'],
+          ['交易数据', 'GMV、订单、退款、售后、商家履约'],
+          ['文件格式', 'Excel + PDF 摘要'],
+        ])}
+        <div class="admin-modal-note">导出后可直接发送给运营负责人复盘今日交易和履约异常。</div>
+      `, '生成日报', () => toast('日报已生成，可在下载中心查看'));
+      return;
+    }
+
+    if (text === '全部') {
+      showAdminAction('全部待办', `
+        <div class="admin-modal-timeline">
+          <span>12 个自营 SKU 资料待补齐</span>
+          <span>27 条商家商品需要标准化归集</span>
+          <span>8 单接近发货 SLA</span>
+          <span>11 个售后争议等待平台判定</span>
+        </div>
+      `, '进入订单中心', () => setAdminPage('admin-orders'));
+      return;
+    }
+
+    if (text === '查看商品池') {
+      setAdminPage('admin-pool');
+      toast('已进入商品池管理');
+      return;
+    }
+
+    if (text === '筛选' || text === '查询') {
+      const filter = btn.closest('.admin-filter-row');
+      if (filter) setResultChip(filter);
+      toast(`${text}条件已应用，列表结果已更新`);
+      return;
+    }
+
+    if (text === '新增品牌') {
+      showAdminAction('新增商品品牌', `
+        <div class="admin-modal-form">
+          <label>品牌名称<input value="新工业品牌"></label>
+          <label>品牌归属<select><option>平台自营</option><option>认证商家</option></select></label>
+          <label>主营类目<input value="五金紧固件"></label>
+          <label>排序权重<input value="80"></label>
+        </div>
+      `, '新增品牌', () => {
+        const list = $('.admin-brand-list');
+        const brand = document.createElement('button');
+        brand.innerHTML = '<strong>新工业品牌</strong><span>0 SKU</span>';
+        list?.append(brand);
+        brand.addEventListener('click', () => {
+          $$('.admin-brand-list button').forEach((item) => item.classList.toggle('is-active', item === brand));
+          toast('已切换品牌：新工业品牌');
+        });
+        toast('品牌已新增，可继续维护商品列表');
+      });
+      return;
+    }
+
+    if (text === '类目配置') {
+      showAdminAction('类目配置', `
+        <div class="admin-modal-form">
+          <label>一级类目<input value="五金紧固件"></label>
+          <label>二级类目<input value="螺栓 / 螺母 / 垫片"></label>
+          <label>属性模板<select><option>工业标准件模板</option><option>钢材板材模板</option></select></label>
+          <label>比价字段<input value="材质、规格、强度等级、单位"></label>
+        </div>
+      `, '保存类目', () => toast('类目配置已保存，商品归集字段同步更新'));
+      return;
+    }
+
+    if (text === '识别' && row) {
+      row.classList.add('is-selected');
+      const status = row.querySelector('.tag');
+      setStatus(status, '可比价', 'tag tag--green');
+      btn.textContent = '详情';
+      btn.classList.add('btn--primary');
+      toast('AI 已识别规格、单位和标准 SPU');
+      return;
+    }
+
+    if ((text === '上架' || text === '下架') && row) {
+      const productName = escapeHtml(rowTitle(row));
+      showAdminAction(`${text}确认`, `
+        ${detailList([
+          ['商品', productName],
+          ['影响范围', '买家端商品展示、搜索、比价和下单入口'],
+          ['操作说明', text === '上架' ? '上架后立即进入可售状态' : '下架后保留历史订单与售后入口'],
+        ])}
+      `, `确认${text}`, () => {
+        const status = row.querySelector('td:nth-last-child(2) .tag');
+        const isUp = text === '上架';
+        setStatus(status, isUp ? '上架中' : '已下架', isUp ? 'tag tag--green' : 'tag tag--red');
+        btn.textContent = isUp ? '下架' : '上架';
+        btn.classList.toggle('btn--primary', !isUp);
+        toast(`商品已${text}`);
+      });
+      return;
+    }
+
+    if (text === '编辑' && row) {
+      showAdminAction('编辑自营商品', `
+        <div class="admin-modal-form">
+          <label>商品名称<input value="${escapeHtml(rowTitle(row))}"></label>
+          <label>销售价<input value="${escapeHtml(row.cells?.[2]?.textContent || '')}"></label>
+          <label>库存<input value="${escapeHtml(row.cells?.[3]?.textContent || '')}"></label>
+          <label>售卖状态<select><option>上架中</option><option>草稿</option><option>已下架</option></select></label>
+        </div>
+      `, '保存商品', () => toast('商品信息已保存，买家端展示同步更新'));
+      return;
+    }
+
+    if ((text === '详情' || text === '查看') && row) {
+      const isOrder = btn.closest('#admin-orders');
+      const isAfter = btn.closest('#admin-aftersale');
+      showAdminAction(isAfter ? '售后工单详情' : isOrder ? '订单详情' : '商品详情', `
+        ${detailList([
+          ['编号/名称', escapeHtml(row.cells?.[0]?.textContent || rowTitle(row))],
+          ['当前状态', escapeHtml(row.querySelector('.tag')?.textContent || '已同步')],
+          ['处理建议', isAfter ? '查看证据、判定责任、同步买家和商家' : isOrder ? '核对支付、发货、子订单和售后记录' : '维护品牌、类目、SPU/SKU 和报价来源'],
+        ])}
+        <div class="admin-modal-note">详情面板支持查看完整链路，原型中用弹窗模拟后台抽屉。</div>
+      `, '确认');
+      return;
+    }
+
+    if (text === '导出订单' || text === '导出售后报表') {
+      showAdminAction(text, `
+        ${detailList([
+          ['导出范围', text === '导出订单' ? '当前订单筛选结果' : '当前售后工单与赔付记录'],
+          ['包含字段', text === '导出订单' ? '订单、买家、商品、金额、履约、退款' : '工单、责任方、证据、处理方案、SLA'],
+          ['文件格式', 'Excel 明细 + PDF 摘要'],
+        ])}
+      `, '开始导出', () => toast(`${text}任务已创建`));
+      return;
+    }
+
+    if (btn.id === 'publishCampaign') {
+      showAdminAction('发布营销活动', `
+        <div class="admin-modal-form">
+          <label>活动名称<input value="五金紧固件批采节"></label>
+          <label>投放端<select><option>移动端 + Web端 + 小程序端</option><option>仅移动端</option><option>仅 Web端</option></select></label>
+          <label>生效时间<input value="立即生效"></label>
+          <label>预算上限<input value="¥50,000"></label>
+        </div>
+      `, '确认发布', () => toast('营销活动已发布：首页 Banner、优惠券和商品推荐位已更新'));
+      return;
+    }
+
+    if (promo) {
+      const title = promo.querySelector('strong')?.textContent || '推荐位';
+      const status = promo.querySelector('span');
+      if (text === '编辑') {
+        showAdminAction('首页 Banner 编辑', `
+          <div class="admin-modal-form">
+            <label>Banner 标题<input value="五金紧固件批采节"></label>
+            <label>跳转链接<input value="/buyer.html?campaign=hardware"></label>
+            <label>投放位置<select><option>首页首屏</option><option>商品详情页</option></select></label>
+            <label>素材状态<select><option>投放中</option><option>待审核</option></select></label>
+          </div>
+        `, '保存 Banner', () => {
+          if (status) status.textContent = '4 张投放中';
+          toast('首页 Banner 已保存并同步买家端');
+        });
+        return;
+      }
+      if (text === '调整') {
+        showAdminAction('热销商品排序', `
+          <div class="admin-modal-timeline">
+            <span>1. M8x30 高强螺栓 - 曝光优先</span>
+            <span>2. Q235 冷轧钢板 - 利润优先</span>
+            <span>3. 工业打包带 - 库存优先</span>
+          </div>
+          <div class="admin-modal-note">确认后会刷新首页、搜索推荐和采购专题中的热销排序。</div>
+        `, '应用排序', () => {
+          if (status) status.textContent = '12 个 SKU 已排序';
+          toast('热销商品排序已应用');
+        });
+        return;
+      }
+      if (text === '配置') {
+        showAdminAction('企业采购券配置', `
+          <div class="admin-modal-form">
+            <label>券面额<input value="¥600"></label>
+            <label>使用门槛<input value="满 ¥20,000 可用"></label>
+            <label>发放数量<input value="500"></label>
+            <label>适用类目<input value="五金紧固件、自营商品、认证商家"></label>
+          </div>
+        `, '保存券配置', () => {
+          if (status) status.textContent = '6 张可领';
+          toast('企业采购券配置已更新');
+        });
+        return;
+      }
+      toast(`${title}已更新`);
+    }
+  });
+
   $('#saveAdminSettings')?.addEventListener('click', () => toast('系统设置已保存，交易与售后规则实时生效'));
 }
 

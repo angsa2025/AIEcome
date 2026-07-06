@@ -2488,6 +2488,141 @@ body[data-page="admin"] .admin-promo-list button {
   grid-row: 1 / span 2;
 }
 
+body[data-page="admin"] .admin-action-modal__card {
+  width: min(680px, calc(100vw - 32px));
+  border: 1px solid var(--admin-line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+body[data-page="admin"] .admin-action-modal__body {
+  display: grid;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+body[data-page="admin"] .admin-action-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+body[data-page="admin"] .admin-modal-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-page="admin"] .admin-modal-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--admin-muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+body[data-page="admin"] .admin-modal-form input,
+body[data-page="admin"] .admin-modal-form select {
+  min-height: 40px;
+  border: 1px solid var(--admin-line);
+  border-radius: 10px;
+  padding: 0 11px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  outline: 0;
+}
+
+body[data-page="admin"] .admin-modal-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+body[data-page="admin"] .admin-modal-list div {
+  border: 1px solid var(--admin-line);
+  border-radius: 10px;
+  padding: 11px;
+  background: #fffaf0;
+}
+
+body[data-page="admin"] .admin-modal-list span {
+  display: block;
+  color: var(--admin-muted);
+  font-size: 12px;
+}
+
+body[data-page="admin"] .admin-modal-list strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+body[data-page="admin"] .admin-modal-note {
+  border: 1px solid rgba(140, 90, 60, 0.18);
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--admin-primary-soft);
+  color: var(--admin-primary);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+body[data-page="admin"] .admin-modal-timeline {
+  display: grid;
+  gap: 8px;
+}
+
+body[data-page="admin"] .admin-modal-timeline span {
+  border: 1px solid var(--admin-line);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+body[data-page="admin"] .admin-result-chip {
+  min-height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 11px;
+  background: var(--admin-primary-soft);
+  color: var(--admin-primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+body[data-page="admin"] .admin-upload-grid div {
+  cursor: pointer;
+}
+
+body[data-page="admin"] .admin-upload-grid div.is-uploaded {
+  border-style: solid;
+  border-color: rgba(45, 126, 87, 0.35);
+  background: #eefaf4;
+  color: #2d7e57;
+}
+
+body[data-page="admin"] .admin-tree-list div {
+  cursor: pointer;
+}
+
+body[data-page="admin"] .admin-tree-list div.is-active {
+  border-color: rgba(140, 90, 60, 0.34);
+  background: var(--admin-primary-soft);
+}
+
+body[data-page="admin"] .admin-task-list button:hover,
+body[data-page="admin"] .admin-brand-list button:hover,
+body[data-page="admin"] .admin-tree-list div:hover,
+body[data-page="admin"] .admin-promo-list div:hover {
+  border-color: rgba(140, 90, 60, 0.34);
+}
+
 @media (max-width: 1100px) {
   body[data-page="admin"] .admin-stat-grid,
   body[data-page="admin"] .admin-detail-grid {
@@ -2500,6 +2635,15 @@ body[data-page="admin"] .admin-promo-list button {
 }
 
 @media (max-width: 540px) {
+  body[data-page="admin"] .admin-modal-form,
+  body[data-page="admin"] .admin-modal-list {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="admin"] .admin-action-modal__footer {
+    display: grid;
+  }
+
   body[data-page="buyer"] .phone-app {
     width: 100vw;
     height: 100vh;

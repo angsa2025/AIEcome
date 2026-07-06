@@ -27,12 +27,12 @@ export const prototype = {
     {
       type: 'browser',
       channel: '后台端',
-      title: '后台端 · 平台总后台',
-      subtitle: '商家审核 · 公海标准化 · 多方分账 · 售后仲裁 · 风控预警',
+      title: '后台端 · 电商运营后台',
+      subtitle: '自营商品上架 · 商品池品牌/类目/列表/详情 · 订单售后 · 营销设置',
       src: './prototype/admin.html',
       href: './prototype/admin.html',
       action: '打开后台端',
-      badges: ['商家审核', '标准化', '售后仲裁', '分账风控'],
+      badges: ['自营商品', '商品池管理', '订单售后', '营销设置'],
     },
   ],
 };

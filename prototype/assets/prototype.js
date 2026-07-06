@@ -447,6 +447,26 @@ function initMerchant() {
 function initAdmin() {
   bindTabs('.sidebar', '[data-target]', '.page');
 
+  $$('[data-target]').forEach((btn) => {
+    if (btn.closest('.sidebar')) return;
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      const side = $(`.sidebar [data-target="${target}"]`);
+      side?.click();
+    });
+  });
+
+  $('#publishSelfProduct')?.addEventListener('click', () => {
+    const name = $('#selfProductName')?.value?.trim() || '新自营商品';
+    const table = $('#selfProductTable');
+    if (table) {
+      const row = document.createElement('tr');
+      row.innerHTML = `<td><div class="admin-product-cell"><span>NEW</span><div><strong>${name}</strong><em>SKU：SELF-NEW-${Date.now().toString().slice(-4)}</em></div></div></td><td>AIEcome 自营<br><span class="text-muted">五金紧固件 / 螺栓</span></td><td>¥0.86</td><td>50,000</td><td>0</td><td><span class="tag tag--green">上架中</span></td><td><button class="btn btn--ghost">编辑</button> <button class="btn">下架</button></td>`;
+      table.prepend(row);
+    }
+    toast('自营商品已发布并进入平台商品池');
+  });
+
   $$('[data-approve]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const row = btn.closest('tr');
@@ -466,6 +486,10 @@ function initAdmin() {
     toast('标准化规则已应用，可同步到公海池');
   }));
 
+  $$('[data-open-detail]').forEach((btn) => btn.addEventListener('click', () => {
+    toast('已打开商品详情：品牌、类目、SPU/SKU、报价与质检信息已同步展示');
+  }));
+
   const quality = $('#qualityWeight');
   const price = $('#priceWeight');
   const qualityText = $('#qualityWeightText');
@@ -483,6 +507,15 @@ function initAdmin() {
 
   $('#exportFinance')?.addEventListener('click', () => toast('已生成分账对账 Excel'));
 
+  $$('[data-admin-order-ship]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const status = btn.closest('tr').querySelector('[data-admin-order-status]');
+      status.textContent = '已发货';
+      status.className = 'tag tag--green';
+      toast('订单已标记发货，买家端订单状态同步更新');
+    });
+  });
+
   $$('[data-admin-after]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const status = btn.closest('tr').querySelector('[data-admin-after-status]');
@@ -491,6 +524,9 @@ function initAdmin() {
       toast('仲裁结果已通知买家与商家，并进入履约跟踪');
     });
   });
+
+  $('#publishCampaign')?.addEventListener('click', () => toast('营销活动已发布：首页 Banner、优惠券和商品推荐位已更新'));
+  $('#saveAdminSettings')?.addEventListener('click', () => toast('系统设置已保存，交易与售后规则实时生效'));
 }
 
 function initIndex() {

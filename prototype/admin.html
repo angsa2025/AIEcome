@@ -3,142 +3,283 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AIEcome · 平台总管理后台原型</title>
+  <title>AIEcome · 电商平台运营后台原型</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./assets/prototype.css" />
 </head>
 <body data-page="admin">
-  <div class="topbar">
+  <div class="topbar admin-topbar">
     <div class="topbar__inner">
-      <a class="brand" href="./index.html"><span class="brand__mark">管</span><span>平台总后台</span></a>
+      <a class="brand" href="./index.html"><span class="brand__mark">A</span><span>AIEcome 电商运营后台</span></a>
       <nav class="topbar__links">
-        <a href="./buyer.html">买家端</a>
-        <a href="./merchant.html">商家端</a>
+        <a href="./buyer.html">移动端</a>
+        <a href="./merchant.html">Web端</a>
         <a href="../index.html">PRD 页</a>
       </nav>
     </div>
   </div>
 
-  <div class="workspace">
-    <aside class="sidebar">
-      <div class="side-title">Admin Console</div>
-      <button class="side-link is-active" data-target="admin-dashboard">数据大屏</button>
+  <div class="workspace admin-workspace">
+    <aside class="sidebar admin-sidebar">
+      <div class="side-title">Commerce Console</div>
+      <button class="side-link is-active" data-target="admin-dashboard">运营总览</button>
+      <div class="side-caption">商品</div>
+      <button class="side-link" data-target="admin-self-products">自营商品</button>
+      <button class="side-link" data-target="admin-pool">商品池管理</button>
       <button class="side-link" data-target="admin-merchants">商家审核</button>
-      <button class="side-link" data-target="admin-sea">公海标准</button>
-      <button class="side-link" data-target="admin-engine">比价引擎</button>
-      <button class="side-link" data-target="admin-finance">资金分账</button>
-      <button class="side-link" data-target="admin-aftersale">售后仲裁</button>
-      <button class="side-link" data-target="admin-risk">风控预警</button>
+      <div class="side-caption">交易</div>
+      <button class="side-link" data-target="admin-orders">订单中心</button>
+      <button class="side-link" data-target="admin-aftersale">售后中心</button>
+      <div class="side-caption">运营</div>
+      <button class="side-link" data-target="admin-marketing">营销中心</button>
+      <button class="side-link" data-target="admin-engine">比价规则</button>
+      <button class="side-link" data-target="admin-settings">系统设置</button>
     </aside>
 
-    <main class="main">
+    <main class="main admin-main">
       <section class="page is-active" id="admin-dashboard">
-        <div class="dash-head">
-          <div><h1>平台经营数据</h1><p>公海商品、AI 采购、比价转化、资金分账统一监控。</p></div>
-          <button class="btn btn--primary">导出日报</button>
+        <div class="dash-head admin-page-head">
+          <div>
+            <span class="admin-kicker">Dashboard</span>
+            <h1>电商经营总览</h1>
+            <p>自营商品、商家商品、公海比价、订单履约、售后和营销活动统一监控。</p>
+          </div>
+          <div class="admin-head-actions">
+            <button class="btn">刷新</button>
+            <button class="btn btn--primary">导出日报</button>
+          </div>
         </div>
-        <div class="grid-3">
-          <div class="metric"><strong>1,284,920</strong><span>公海 SKU 总量</span></div>
-          <div class="metric"><strong>94.2%</strong><span>AI 解析成功率</span></div>
-          <div class="metric"><strong>31.6%</strong><span>比价转化下单率</span></div>
+
+        <div class="admin-stat-grid">
+          <div class="metric admin-metric"><span>今日 GMV</span><strong>¥286,400</strong><em>较昨日 +18.6%</em></div>
+          <div class="metric admin-metric"><span>待发货订单</span><strong>126</strong><em>自营 34 / 商家 92</em></div>
+          <div class="metric admin-metric"><span>在售商品</span><strong>18,942</strong><em>自营 328 / 公海 18,614</em></div>
+          <div class="metric admin-metric"><span>售后待处理</span><strong>43</strong><em>需平台介入 11</em></div>
         </div>
-        <div class="grid-2" style="margin-top:18px;">
-          <div class="panel"><h2>热门品类</h2><div class="product-meta"><span class="tag tag--green">五金紧固件 38%</span><span class="tag">钢材 22%</span><span class="tag">包装耗材 14%</span><span class="tag">电器配件 9%</span></div></div>
-          <div class="panel"><h2>今日待处理</h2><table class="table"><tbody><tr><td>商家资质审核</td><td><span class="tag tag--amber">12</span></td></tr><tr><td>商品标准化异常</td><td><span class="tag tag--red">27</span></td></tr><tr><td>提现审核</td><td><span class="tag">8</span></td></tr></tbody></table></div>
+
+        <div class="grid-2 admin-grid-gap">
+          <div class="panel admin-panel">
+            <div class="admin-panel-head"><h2>待办事项</h2><button class="btn btn--ghost">全部</button></div>
+            <div class="admin-task-list">
+              <button data-target="admin-self-products"><strong>自营商品待上架</strong><span>12 个 SKU 资料未完整</span></button>
+              <button data-target="admin-pool"><strong>商品池标准化异常</strong><span>27 条商家商品需归集确认</span></button>
+              <button data-target="admin-orders"><strong>超时未发货订单</strong><span>8 单接近 SLA</span></button>
+              <button data-target="admin-aftersale"><strong>售后争议</strong><span>11 个工单等待平台判定</span></button>
+            </div>
+          </div>
+          <div class="panel admin-panel">
+            <div class="admin-panel-head"><h2>热销品类</h2><button class="btn btn--ghost">查看商品池</button></div>
+            <div class="admin-category-bars">
+              <div><span>五金紧固件</span><strong>38%</strong><i style="--w:38%"></i></div>
+              <div><span>钢材板材</span><strong>22%</strong><i style="--w:22%"></i></div>
+              <div><span>包装耗材</span><strong>14%</strong><i style="--w:14%"></i></div>
+              <div><span>电器配件</span><strong>9%</strong><i style="--w:9%"></i></div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="page" id="admin-merchants">
-        <div class="dash-head"><div><h1>商家入驻审核</h1><p>审核主体资质、质检报告、售后政策，通过后开放商品上架权限。</p></div></div>
-        <div class="panel">
-          <table class="table">
-            <thead><tr><th>商家</th><th>类型</th><th>主营</th><th>状态</th><th>操作</th></tr></thead>
-            <tbody>
-              <tr><td>苏州工业紧固件有限公司</td><td>企业商家</td><td>五金紧固件</td><td><span class="tag tag--amber" data-review-status>待审核</span></td><td><button class="btn btn--primary" data-approve="yes">通过</button> <button class="btn btn--danger" data-approve="no">驳回</button></td></tr>
-              <tr><td>永固五金批发</td><td>个人商家</td><td>工业配件</td><td><span class="tag tag--amber" data-review-status>待补资料</span></td><td><button class="btn btn--primary" data-approve="yes">通过</button> <button class="btn btn--danger" data-approve="no">驳回</button></td></tr>
+      <section class="page" id="admin-self-products">
+        <div class="dash-head admin-page-head">
+          <div><span class="admin-kicker">Self-operated Products</span><h1>自营商品上架</h1><p>平台自营商品支持编辑基础信息、价格库存、规格、上架状态和主图。</p></div>
+          <button class="btn btn--primary" id="publishSelfProduct">发布自营商品</button>
+        </div>
+        <div class="grid-2 admin-grid-gap">
+          <div class="panel admin-panel">
+            <h2>新增/编辑商品</h2>
+            <div class="admin-form-grid">
+              <div class="field"><label>商品名称</label><input id="selfProductName" value="AIEcome 自营 M8x30 高强螺栓" /></div>
+              <div class="field"><label>品牌</label><select><option>AIEcome 自营</option><option>华东紧固件</option></select></div>
+              <div class="field"><label>类目</label><select><option>五金紧固件 / 螺栓</option><option>钢材板材</option></select></div>
+              <div class="field"><label>售卖状态</label><select><option>立即上架</option><option>保存草稿</option><option>定时上架</option></select></div>
+              <div class="field"><label>销售价</label><input value="0.86" /></div>
+              <div class="field"><label>库存</label><input value="50000" /></div>
+              <div class="field admin-span-2"><label>商品卖点</label><textarea>平台自营严选，国标一级，质检报告齐全，支持企业专票和批量采购。</textarea></div>
+            </div>
+          </div>
+          <div class="panel admin-panel">
+            <h2>商品主图与规格</h2>
+            <div class="admin-upload-grid">
+              <div>主图</div><div>规格图</div><div>质检报告</div>
+            </div>
+            <div class="product-meta">
+              <span class="tag tag--green">M8x30</span>
+              <span class="tag">42CrMo</span>
+              <span class="tag">1000件/箱</span>
+              <span class="tag">苏州仓</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel admin-panel admin-table-panel">
+          <div class="admin-panel-head"><h2>自营商品列表</h2><div class="admin-filter-row"><input placeholder="搜索商品名称/SKU" /><select><option>全部状态</option><option>上架中</option><option>草稿</option></select><button class="btn">筛选</button></div></div>
+          <table class="table admin-table">
+            <thead><tr><th>商品</th><th>品牌/类目</th><th>价格</th><th>库存</th><th>销量</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody id="selfProductTable">
+              <tr><td><div class="admin-product-cell"><span>M8</span><div><strong>AIEcome 自营 M8x30 高强螺栓</strong><em>SKU：SELF-M8-42CRMO</em></div></div></td><td>AIEcome 自营<br><span class="text-muted">五金紧固件 / 螺栓</span></td><td>¥0.86</td><td>50,000</td><td>12,840</td><td><span class="tag tag--green">上架中</span></td><td><button class="btn btn--ghost">编辑</button> <button class="btn">下架</button></td></tr>
+              <tr><td><div class="admin-product-cell"><span>ST</span><div><strong>自营 Q235 冷轧钢板</strong><em>SKU：SELF-Q235-2MM</em></div></div></td><td>AIEcome 自营<br><span class="text-muted">钢材板材</span></td><td>¥4,280/吨</td><td>86 吨</td><td>420</td><td><span class="tag tag--amber">草稿</span></td><td><button class="btn btn--ghost">编辑</button> <button class="btn btn--primary">上架</button></td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <section class="page" id="admin-sea">
-        <div class="dash-head"><div><h1>公海商品池标准化</h1><p>把商家非标表达统一成平台可比价的 SPU/SKU、单位和行业规则。</p></div><button class="btn btn--primary" id="standardizeBtn">应用标准化</button></div>
-        <div class="grid-2">
-          <div class="panel">
-            <h2>待标准化商品</h2>
-            <div class="field"><label>商家原始标题</label><input value="六角外六角螺丝 M8 30mm SUS304 1000个一箱" /></div>
-            <div class="field"><label>商家原始规格</label><textarea>材质：304/SUS304；包装：1000个/箱；报价：820元/箱；含税；苏州发货。</textarea></div>
-            <button class="btn" id="standardizeBtn">AI 辅助识别</button>
-          </div>
-          <div class="panel">
-            <h2>标准化结果</h2>
-            <div class="product-meta" id="standardizeResult">
-              <span class="tag">等待识别</span>
+      <section class="page" id="admin-pool">
+        <div class="dash-head admin-page-head">
+          <div><span class="admin-kicker">Product Pool</span><h1>商品池电商化管理</h1><p>商品池按品牌、类目、商品列表、商品详情管理，再进入公海标准化和比价索引。</p></div>
+          <button class="btn btn--primary" id="standardizeBtn">AI 标准化归集</button>
+        </div>
+        <div class="admin-pool-layout">
+          <div class="panel admin-panel">
+            <div class="admin-panel-head"><h2>商品品牌</h2><button class="btn btn--ghost">新增品牌</button></div>
+            <div class="admin-brand-list">
+              <button class="is-active"><strong>AIEcome 自营</strong><span>328 SKU</span></button>
+              <button><strong>华东紧固件</strong><span>2,842 SKU</span></button>
+              <button><strong>永固五金</strong><span>1,186 SKU</span></button>
+              <button><strong>鑫诚工业配件</strong><span>946 SKU</span></button>
             </div>
-            <p style="color:var(--ink-2);line-height:1.7;margin-top:16px;">识别后会写入行业规则库，后续相似商品可自动归集到同一公海 SKU。</p>
+          </div>
+          <div class="panel admin-panel">
+            <div class="admin-panel-head"><h2>商品类目</h2><button class="btn btn--ghost">类目配置</button></div>
+            <div class="admin-tree-list">
+              <div><strong>五金紧固件</strong><span>螺栓 / 螺母 / 垫片</span></div>
+              <div><strong>钢材板材</strong><span>冷轧板 / 不锈钢 / 型材</span></div>
+              <div><strong>包装耗材</strong><span>纸箱 / 打包带 / 缠绕膜</span></div>
+              <div><strong>电器配件</strong><span>开关 / 线缆 / 端子</span></div>
+            </div>
+          </div>
+          <div class="panel admin-panel admin-pool-list">
+            <div class="admin-panel-head"><h2>商品列表</h2><div class="admin-filter-row"><input placeholder="商品标题/SPU/SKU" /><select><option>全部来源</option><option>自营</option><option>商家</option></select><button class="btn">查询</button></div></div>
+            <table class="table admin-table">
+              <thead><tr><th>商品</th><th>来源</th><th>品牌</th><th>类目</th><th>SPU/SKU</th><th>状态</th><th>操作</th></tr></thead>
+              <tbody>
+                <tr class="is-selected"><td><div class="admin-product-cell"><span>M8</span><div><strong>M8x30 42CrMo 国标一级螺栓</strong><em>商家标题已归集 18 条</em></div></div></td><td><span class="tag tag--green">自营+商家</span></td><td>AIEcome / 华东</td><td>五金紧固件</td><td>SPU-BOLT-HIGH<br><span class="text-muted">SKU-M8-30-42</span></td><td><span class="tag tag--green">可比价</span></td><td><button class="btn btn--primary" data-open-detail>详情</button></td></tr>
+                <tr><td><div class="admin-product-cell"><span>S2</span><div><strong>Q235 冷轧钢板 2mm</strong><em>待补单位换算规则</em></div></div></td><td>商家</td><td>苏钢工业</td><td>钢材板材</td><td>SPU-STEEL-Q235</td><td><span class="tag tag--amber">待标准化</span></td><td><button class="btn">识别</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel admin-panel admin-detail-card">
+            <h2>商品详情</h2>
+            <div class="admin-detail-hero"><span>M8</span><div><strong>M8x30 42CrMo 国标一级螺栓</strong><p>公海标准 SPU：高强螺栓 · SKU：M8x30 / 42CrMo / 国标一级</p></div></div>
+            <div class="admin-detail-grid">
+              <div><span>标准单位</span><strong>件</strong></div>
+              <div><span>商家报价</span><strong>3 家</strong></div>
+              <div><span>最低价</span><strong>¥0.69</strong></div>
+              <div><span>质量最高</span><strong>96分</strong></div>
+            </div>
+            <div class="product-meta" id="standardizeResult">
+              <span class="tag tag--green">品牌：AIEcome 自营/华东紧固件</span>
+              <span class="tag">类目：五金紧固件 / 螺栓</span>
+              <span class="tag">别名：外六角螺丝、六角螺栓</span>
+              <span class="tag">质检：GB/T 3098.1</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="page" id="admin-engine">
-        <div class="dash-head"><div><h1>AI 比价引擎配置</h1><p>配置质量/价格权重、过滤规则、词库和类目规则，默认质量优先。</p></div><button class="btn btn--primary" id="saveWeights">保存规则</button></div>
-        <div class="grid-2">
-          <div class="panel">
-            <h2>综合排序权重</h2>
-            <div class="slider-row"><label>质量权重</label><input id="qualityWeight" type="range" min="40" max="90" value="60" /><strong id="qualityWeightText">60%</strong></div>
-            <div class="slider-row"><label>价格权重</label><input id="priceWeight" type="range" min="10" max="60" value="40" /><strong id="priceWeightText">40%</strong></div>
-            <p style="color:var(--ink-2);line-height:1.7;">公式：质量得分 × 质量权重 + (1 - 综合单价 / 公海均价) × 价格权重。</p>
-          </div>
-          <div class="panel">
-            <h2>过滤规则</h2>
-            <label><input type="checkbox" checked /> 屏蔽无质检报告商品</label><br><br>
-            <label><input type="checkbox" checked /> 屏蔽交期超过采购需求商品</label><br><br>
-            <label><input type="checkbox" checked /> 屏蔽库存不足商品</label><br><br>
-            <label><input type="checkbox" /> 屏蔽质量分低于 70 的商品</label>
-          </div>
-        </div>
-      </section>
-
-      <section class="page" id="admin-finance">
-        <div class="dash-head"><div><h1>交易与多方分账</h1><p>买家一次付款，平台根据订单明细拆分给供货商、平台和三方服务公司。</p></div><button class="btn btn--primary" id="exportFinance">导出对账</button></div>
-        <div class="panel">
-          <table class="table">
-            <thead><tr><th>主订单</th><th>总金额</th><th>供货商</th><th>平台服务费</th><th>三方服务费</th><th>状态</th></tr></thead>
+      <section class="page" id="admin-merchants">
+        <div class="dash-head admin-page-head"><div><span class="admin-kicker">Merchant Review</span><h1>商家入驻审核</h1><p>审核主体资质、质检报告、售后政策，通过后开放商品上架权限。</p></div></div>
+        <div class="panel admin-panel admin-table-panel">
+          <table class="table admin-table">
+            <thead><tr><th>商家</th><th>类型</th><th>主营类目</th><th>质检资质</th><th>售后政策</th><th>状态</th><th>操作</th></tr></thead>
             <tbody>
-              <tr><td>O20260706001</td><td>¥28,640</td><td>¥26,880</td><td>¥1,002</td><td>¥758</td><td><span class="tag tag--green">已分账</span></td></tr>
-              <tr><td>O20260706002</td><td>¥43,900</td><td>¥41,420</td><td>¥1,536</td><td>¥944</td><td><span class="tag tag--amber">待确认收货</span></td></tr>
+              <tr><td>苏州工业紧固件有限公司</td><td>企业商家</td><td>五金紧固件</td><td><span class="tag tag--green">齐全</span></td><td>7日质量退换</td><td><span class="tag tag--amber" data-review-status>待审核</span></td><td><button class="btn btn--primary" data-approve="yes">通过</button> <button class="btn btn--danger" data-approve="no">驳回</button></td></tr>
+              <tr><td>永固五金批发</td><td>个人商家</td><td>工业配件</td><td><span class="tag tag--amber">待补</span></td><td>仅换货</td><td><span class="tag tag--amber" data-review-status>待补资料</span></td><td><button class="btn btn--primary" data-approve="yes">通过</button> <button class="btn btn--danger" data-approve="no">驳回</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="admin-orders">
+        <div class="dash-head admin-page-head">
+          <div><span class="admin-kicker">Orders</span><h1>订单中心</h1><p>统一管理自营订单、商家子订单、发货、退款和对账。</p></div>
+          <button class="btn btn--primary">导出订单</button>
+        </div>
+        <div class="admin-tabs"><button class="is-active">全部订单</button><button>待付款</button><button>待发货</button><button>已发货</button><button>已完成</button><button>退款中</button></div>
+        <div class="panel admin-panel admin-table-panel">
+          <div class="admin-filter-row admin-filter-full"><input placeholder="订单号/买家/商品" /><select><option>全部渠道</option><option>移动端</option><option>Web端</option></select><select><option>全部类型</option><option>自营订单</option><option>商家订单</option></select><button class="btn">查询</button></div>
+          <table class="table admin-table">
+            <thead><tr><th>订单</th><th>买家</th><th>商品</th><th>订单类型</th><th>金额</th><th>状态</th><th>操作</th></tr></thead>
+            <tbody>
+              <tr><td>O20260706001<br><span class="text-muted">2026-07-06 09:41</span></td><td>苏州某制造公司</td><td>M8x30 螺栓 20,000件</td><td><span class="tag tag--green">跨商家</span></td><td>¥28,640</td><td><span class="tag tag--amber" data-admin-order-status>待发货</span></td><td><button class="btn btn--primary" data-admin-order-ship>标记发货</button> <button class="btn">详情</button></td></tr>
+              <tr><td>O20260706002</td><td>杭州设备厂</td><td>Q235 钢板 8吨</td><td>自营</td><td>¥43,900</td><td><span class="tag tag--green">已完成</span></td><td><button class="btn">详情</button></td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
       <section class="page" id="admin-aftersale">
-        <div class="dash-head"><div><h1>售后仲裁与退款</h1><p>统一跟踪买家申请、商家响应、平台介入、退款/补发结果。</p></div><button class="btn btn--primary">导出售后报表</button></div>
-        <div class="grid-3">
-          <div class="metric"><strong>43</strong><span>处理中工单</span></div>
-          <div class="metric"><strong>11</strong><span>需平台介入</span></div>
-          <div class="metric"><strong>96.4%</strong><span>按时完结率</span></div>
+        <div class="dash-head admin-page-head"><div><span class="admin-kicker">After-sales</span><h1>售后中心</h1><p>覆盖退款、退货、补发、平台仲裁、售后规则和赔付记录。</p></div><button class="btn btn--primary">导出售后报表</button></div>
+        <div class="admin-stat-grid">
+          <div class="metric admin-metric"><span>处理中工单</span><strong>43</strong><em>今日新增 9</em></div>
+          <div class="metric admin-metric"><span>需平台介入</span><strong>11</strong><em>争议率 2.1%</em></div>
+          <div class="metric admin-metric"><span>按时完结率</span><strong>96.4%</strong><em>SLA 48小时</em></div>
+          <div class="metric admin-metric"><span>退款金额</span><strong>¥18,240</strong><em>近7日</em></div>
         </div>
-        <div class="panel" style="margin-top:18px;">
-          <h2>争议工单</h2>
-          <table class="table">
-            <thead><tr><th>工单</th><th>买家/商家</th><th>问题</th><th>证据</th><th>状态</th><th>操作</th></tr></thead>
+        <div class="panel admin-panel admin-table-panel">
+          <table class="table admin-table">
+            <thead><tr><th>工单</th><th>买家/商家</th><th>类型</th><th>问题</th><th>证据</th><th>状态</th><th>操作</th></tr></thead>
             <tbody>
-              <tr><td>AS-240706-01</td><td>苏州某制造公司<br><span class="tag">华东紧固件工厂</span></td><td>螺纹破损，买家申请补发或退款</td><td>3张照片 + 质检说明</td><td><span class="tag tag--amber" data-admin-after-status>商家响应中</span></td><td><button class="btn btn--primary" data-admin-after>判定补发</button></td></tr>
-              <tr><td>AS-240705-06</td><td>杭州设备厂<br><span class="tag">永固五金批发</span></td><td>少件争议</td><td>物流称重记录</td><td><span class="tag tag--green">已退款</span></td><td><button class="btn">查看</button></td></tr>
+              <tr><td>AS-240706-01</td><td>苏州某制造公司<br><span class="tag">华东紧固件工厂</span></td><td>补发/退款</td><td>螺纹破损</td><td>3张照片 + 质检说明</td><td><span class="tag tag--amber" data-admin-after-status>商家响应中</span></td><td><button class="btn btn--primary" data-admin-after>判定补发</button></td></tr>
+              <tr><td>AS-240705-06</td><td>杭州设备厂<br><span class="tag">永固五金批发</span></td><td>仅退款</td><td>少件争议</td><td>物流称重记录</td><td><span class="tag tag--green">已退款</span></td><td><button class="btn">查看</button></td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <section class="page" id="admin-risk">
-        <div class="dash-head"><div><h1>安全风控与异常预警</h1><p>围绕公海报价、质量评分、资金和账号进行留痕监控。</p></div></div>
-        <div class="grid-3">
-          <div class="panel"><h2>虚假标价</h2><p style="color:var(--ink-2);line-height:1.7;">12 个报价显著低于公海均价 35%，建议人工复核。</p><span class="tag tag--red">高风险</span></div>
-          <div class="panel"><h2>低质商品</h2><p style="color:var(--ink-2);line-height:1.7;">4 个 SKU 售后率超过 18%，已降低推荐权重。</p><span class="tag tag--amber">观察</span></div>
-          <div class="panel"><h2>资金留痕</h2><p style="color:var(--ink-2);line-height:1.7;">所有提现、退款、佣金变动均已记录操作日志。</p><span class="tag tag--green">正常</span></div>
+      <section class="page" id="admin-marketing">
+        <div class="dash-head admin-page-head"><div><span class="admin-kicker">Marketing</span><h1>营销中心</h1><p>配置首页 Banner、优惠券、满减、秒杀、采购专题和推荐商品。</p></div><button class="btn btn--primary" id="publishCampaign">发布活动</button></div>
+        <div class="grid-2 admin-grid-gap">
+          <div class="panel admin-panel">
+            <h2>活动配置</h2>
+            <div class="field"><label>活动名称</label><input value="五金紧固件批采节" /></div>
+            <div class="field"><label>活动类型</label><select><option>满减促销</option><option>优惠券</option><option>限时秒杀</option><option>采购专题</option></select></div>
+            <div class="field"><label>活动规则</label><textarea>满 ¥20,000 减 ¥600，限五金紧固件类目，自营和已认证商家可参与。</textarea></div>
+          </div>
+          <div class="panel admin-panel">
+            <h2>推荐位</h2>
+            <div class="admin-promo-list">
+              <div><strong>首页 Banner</strong><span>3 张投放中</span><button class="btn btn--ghost">编辑</button></div>
+              <div><strong>热销商品</strong><span>12 个 SKU</span><button class="btn btn--ghost">调整</button></div>
+              <div><strong>企业采购券</strong><span>5 张可领</span><button class="btn btn--ghost">配置</button></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="admin-engine">
+        <div class="dash-head admin-page-head"><div><span class="admin-kicker">Pricing Engine</span><h1>比价规则配置</h1><p>管理公海商品标准化、质量评分、价格权重、过滤规则和行业词库。</p></div><button class="btn btn--primary" id="saveWeights">保存规则</button></div>
+        <div class="grid-2 admin-grid-gap">
+          <div class="panel admin-panel">
+            <h2>综合排序权重</h2>
+            <div class="slider-row"><label>质量权重</label><input id="qualityWeight" type="range" min="40" max="90" value="60" /><strong id="qualityWeightText">60%</strong></div>
+            <div class="slider-row"><label>价格权重</label><input id="priceWeight" type="range" min="10" max="60" value="40" /><strong id="priceWeightText">40%</strong></div>
+          </div>
+          <div class="panel admin-panel">
+            <h2>过滤规则</h2>
+            <label><input type="checkbox" checked /> 屏蔽无质检报告商品</label><br><br>
+            <label><input type="checkbox" checked /> 屏蔽交期超过采购需求商品</label><br><br>
+            <label><input type="checkbox" checked /> 屏蔽库存不足商品</label><br><br>
+            <label><input type="checkbox" /> 屏蔽售后率高于 15% 的商家</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="admin-settings">
+        <div class="dash-head admin-page-head"><div><span class="admin-kicker">Settings</span><h1>系统设置</h1><p>配置商城基础信息、交易规则、售后规则、物流模板、权限角色和消息通知。</p></div><button class="btn btn--primary" id="saveAdminSettings">保存设置</button></div>
+        <div class="grid-2 admin-grid-gap">
+          <div class="panel admin-panel">
+            <h2>商城基础设置</h2>
+            <div class="field"><label>平台名称</label><input value="AIEcome 公海智能比价采购平台" /></div>
+            <div class="field"><label>客服电话</label><input value="400-800-2026" /></div>
+            <div class="field"><label>发票规则</label><textarea>支持增值税专票、普票；商家订单由商家开票，自营订单由平台开票。</textarea></div>
+          </div>
+          <div class="panel admin-panel">
+            <h2>交易与售后规则</h2>
+            <div class="field"><label>自动确认收货</label><input value="发货后 7 天" /></div>
+            <div class="field"><label>售后申请时限</label><input value="确认收货后 7 天" /></div>
+            <div class="field"><label>商家响应 SLA</label><input value="24 小时内响应，48 小时内给出方案" /></div>
+          </div>
         </div>
       </section>
     </main>
